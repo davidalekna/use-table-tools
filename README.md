@@ -1,7 +1,7 @@
 <h1 align="center">
   dataBrowser 📜 🗂 📖 📒
 </h1>
-<p align="center" style="font-size: 1.2rem;">Dropbox like very flexible "render props" pattern for data browser render props principle</p>
+<p align="center" style="font-size: 1.2rem;">Dropbox like very flexible "render props" pattern for data browser</p>
 
 <hr />
 
@@ -10,13 +10,10 @@
 [![downloads][downloads-badge]][npmcharts] [![version][version-badge]][package]
 [![MIT License][license-badge]][license]
 
-[![PRs Welcome][prs-badge]][prs] [![Chat][chat-badge]][chat]
+[![PRs Welcome][prs-badge]][prs] 
 [![Code of Conduct][coc-badge]][coc]
-[![Join the community on Spectrum][spectrum-badge]][spectrum]
-
-[![Supports React and Preact][react-badge]][react]
+[![Supports React][react-badge]][react]
 [![size][size-badge]][unpkg-dist] [![gzip size][gzip-badge]][unpkg-dist]
-[![module formats: umd, cjs, and es][module-formats-badge]][unpkg-dist]
 
 ## The problem
 
