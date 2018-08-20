@@ -1,7 +1,7 @@
 <h1 align="center">
-  dataBrowser 📜
+  dataBrowser 📜 🗂 📖 📒
 </h1>
-<p align="center" style="font-size: 1.2rem;">Dropbox like data browser render props principle</p>
+<p align="center" style="font-size: 1.2rem;">Dropbox like very flexible "render props" pattern for data browser render props principle</p>
 
 <hr />
 
