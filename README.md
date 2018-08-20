@@ -1,5 +1,5 @@
 <h1 align="center">
-  dataBrowser 📜 🗂 📖 📒
+  dataBrowser 📜 
 </h1>
 <p align="center" style="font-size: 1.2rem;">Dropbox like very flexible "render props" pattern for data browser</p>
 
@@ -12,7 +12,6 @@
 
 [![PRs Welcome][prs-badge]][prs] 
 [![Code of Conduct][coc-badge]][coc]
-[![Supports React][react-badge]][react]
 [![size][size-badge]][unpkg-dist] [![gzip size][gzip-badge]][unpkg-dist]
 
 ## The problem
