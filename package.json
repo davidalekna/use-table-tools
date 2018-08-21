@@ -26,9 +26,10 @@
   "author": "David Alekna <alekna@live.co.uk>",
   "license": "MIT",
   "scripts": {
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
     "prebuild": "rimraf dist",
     "build": "babel src -d dist",
-    "test": "jest --coverage",
     "prepublish": "npm run dist"
   },
   "devDependencies": {
@@ -49,6 +50,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "react-testing-library": "^5.0.0",
     "styled-components": "^3.4.2"
   }
 }
