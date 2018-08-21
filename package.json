@@ -1,7 +1,7 @@
 {
   "name": "react-data-browser",
   "version": "0.1.0",
-  "description": "data browser for react",
+  "description": "DataBrowser is a lightweight, fast and extendable render props component",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
@@ -14,26 +14,28 @@
   "keywords": [
     "react",
     "table",
-    "datagrid", 
+    "datagrid",
     "datatable",
     "file table",
     "list browser",
     "file browser",
-    "data browser"
+    "data browser",
+    "data grid",
+    "react grid"
   ],
   "author": "David Alekna <alekna@live.co.uk>",
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "prebuild babel src -d dist",
-    "lint": "eslint src/**; exit 0",
-    "lint:watch": "esw -w src/**",
+    "build": "babel src -d dist",
+    "test": "jest",
     "prepublish": "npm run dist"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.6",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
     "eslint": "^5.4.0",
@@ -42,6 +44,7 @@
     "eslint-plugin-react": "^7.11.1",
     "eslint-watch": "^4.0.2",
     "hoist-non-react-statics": "^3.0.1",
+    "jest": "^23.5.0",
     "polished": "^1.9.3",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
