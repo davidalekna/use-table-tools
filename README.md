@@ -1,7 +1,7 @@
 <h1 align="center">
   dataBrowser 📜 
 </h1>
-<p align="center" style="font-size: 1.2rem;">Dropbox like very flexible "render props" pattern for data browser</p>
+<p align="center" style="font-size: 1.2rem;">Dropbox like very flexible "render props" pattern for data browser functionality</p>
 
 <hr />
 
@@ -16,11 +16,11 @@
 
 ## The problem
 
-Too many columns in a screen
+Too many columns in a screen, presented styles and other unwanted features. 
 
 ## This solution
 
-Hode columns and pull out whats needed on request
+This program provides no styles, only functionality for the table / grid or any other possible view type. Hide columns and pull out whats needed on request, blah blah blah... 
 
 > NOTE: The original use case of this component is autocomplete, however the API
 > is powerful and flexible enough to build things like dropdowns as well.
@@ -42,15 +42,10 @@ This module is distributed via [npm][npm] which is bundled with [node][node] and
 should be installed as one of your project's `dependencies`:
 
 ```
-npm install --save downshift
+npm install --save react-data-browser
 ```
 
-> This package also depends on `react` and `prop-types`. Please make sure you
-> have those installed as well.
-
-> Note also this library supports `preact` out of the box. If you are using
-> `preact` then use the corresponding module in the `preact/dist` folder. You
-> can even `import Downshift from 'downshift/preact'` 👍
+> This package also depends on `react`, `hoist-non-react-statics` and `prop-types`. Please make sure you have those installed as well.
 
 ## Usage
 
