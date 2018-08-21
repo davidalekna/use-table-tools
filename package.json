@@ -28,7 +28,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "babel src -d dist",
-    "test": "jest",
+    "test": "jest --coverage",
     "prepublish": "npm run dist"
   },
   "devDependencies": {

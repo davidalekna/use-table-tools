@@ -1,6 +1,9 @@
 {
   "presets": [["env", { "modules": false }], "stage-1", "react"],
   "env": {
+    "development": {
+      "ignore": ["**/__mocks__", "**/__tests__", "**/*.test.js"]
+    },
     "test": {
       "presets": [["env"], "stage-1", "react"]
     }
