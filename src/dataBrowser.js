@@ -45,14 +45,6 @@ export class DataBrowser extends React.Component {
     viewType: PropTypes.string,
     viewsAvailable: PropTypes.array,
   };
-  static stateChangeTypes = {
-    deselectAll: '__deselect_all__',
-    selectAll: '__select_all__',
-    checkboxToggle: '__checbox_toggle__',
-    switchColumns: '__switch_columns__',
-    switchView: '__switch_view__',
-    sortData: '__sort_data__',
-  };
   static defaultProps = {
     stateReducer: (state, changes) => changes,
     viewType: 'LIST_VIEW',
@@ -65,6 +57,15 @@ export class DataBrowser extends React.Component {
       sortField: '',
     },
   };
+  static stateChangeTypes = {
+    deselectAll: '__deselect_all__',
+    selectAll: '__select_all__',
+    checkboxToggle: '__checbox_toggle__',
+    switchColumns: '__switch_columns__',
+    switchView: '__switch_view__',
+    sortData: '__sort_data__',
+  };
+  static Consumer = DataBrowserContext.Consumer;
   static getDerivedStateFromProps(nextProps, prevState) {
     if (prevState.data.length < nextProps.data.length) {
       return {
@@ -75,25 +76,6 @@ export class DataBrowser extends React.Component {
       return prevState;
     }
   }
-  static Consumer = DataBrowserContext.Consumer;
-  isControlledProp(key) {
-    return this.props[key] !== undefined;
-  }
-  getState(stateToMerge = this.state) {
-    return stateToMerge;
-  }
-  internalSetState = (changes, callback) => {
-    this.setState(currentState => {
-      return [changes]
-        .map(c => (typeof c === 'function' ? c(currentState) : c))
-        .map(c => this.props.stateReducer(currentState, c) || {})
-        .map(
-          ({ type: ignoredType, ...remainingChanges }) =>
-            (this.props.debug && console.info(ignoredType)) || remainingChanges,
-        )
-        .map(c => (Object.keys(c).length ? c : null))[0];
-    }, callback);
-  };
   switchColumns = ({
     type = DataBrowser.stateChangeTypes.switchColumns,
     column: selected,
@@ -249,6 +231,21 @@ export class DataBrowser extends React.Component {
     activeSort: this.activeSort,
   };
   state = this.initialState;
+  getState(stateToMerge = this.state) {
+    return stateToMerge;
+  }
+  internalSetState = (changes, callback) => {
+    this.setState(currentState => {
+      return [changes]
+        .map(c => (typeof c === 'function' ? c(currentState) : c))
+        .map(c => this.props.stateReducer(currentState, c) || {})
+        .map(
+          ({ type: ignoredType, ...remainingChanges }) =>
+            (this.props.debug && console.info(ignoredType)) || remainingChanges,
+        )
+        .map(c => (Object.keys(c).length ? c : null))[0];
+    }, callback);
+  };
   render() {
     const { children } = this.props;
     const ui = typeof children === 'function' ? children(this.state) : children;
