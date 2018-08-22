@@ -76,8 +76,11 @@ export class DataBrowser extends React.Component {
     }
   }
   static Consumer = DataBrowserContext.Consumer;
-  getState(state = this.state) {
-    return state;
+  isControlledProp(key) {
+    return this.props[key] !== undefined;
+  }
+  getState(stateToMerge = this.state) {
+    return stateToMerge;
   }
   internalSetState = (changes, callback) => {
     this.setState(currentState => {
