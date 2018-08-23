@@ -1,7 +1,7 @@
 <h1 align="center">
-  dataBrowser 📜 
+  DataBrowser 📜 
 </h1>
-<p align="center" style="font-size: 1.2rem;">Dropbox like very flexible "render props" pattern for data browser functionality</p>
+<p align="center" style="font-size: 1.2rem;">Primitive to build simple, flexible, enhanced data views like table or grid React components</p>
 
 <hr />
 
@@ -16,14 +16,14 @@
 
 ## The problem
 
-Too many columns in a screen, presented styles and other unwanted features. 
+Its quite time consuming to build your own table functionality when you actually dont want to use a built in styled table component. 
 
 ## This solution
 
-This program provides no styles, only functionality for the table / grid or any other possible view type. Hide columns and pull out whats needed on request, blah blah blah... 
+DataBrowser component will provide common functionalities like checkbox, sorting, filtering, visible / offset columns and much more for your individual table components... 
 
-> NOTE: The original use case of this component is autocomplete, however the API
-> is powerful and flexible enough to build things like dropdowns as well.
+> NOTE: The original use case of this component is to build flexbox table list, however the API
+> is powerful and flexible enough to build things like grids as well.
 
 ## Table of Contents
 
@@ -54,67 +54,112 @@ npm install --save react-data-browser
 ```jsx
 import React from 'react'
 import {render} from 'react-dom'
-import Downshift from 'downshift'
+import DataBrowser from 'react-data-browser'
 
-const items = [
-  {value: 'apple'},
-  {value: 'pear'},
-  {value: 'orange'},
-  {value: 'grape'},
-  {value: 'banana'},
-]
+const columns = []
+
+const items = []
 
 render(
-  <Downshift
-    onChange={selection => alert(`You selected ${selection.value}`)}
-    itemToString={item => (item ? item.value : '')}
-  >
+  <DataBrowser columns={columns}>
     {({
-      getInputProps,
-      getItemProps,
-      getLabelProps,
-      getMenuProps,
-      isOpen,
-      inputValue,
-      highlightedIndex,
-      selectedItem,
+      columnFlex,
+      visibleColumns,
+      selectAllCheckboxState,
+      checkboxState,
+      onSelection,
+      checkboxToggle,
+      viewType,
+      defaultSortMethod,
     }) => (
       <div>
-        <label {...getLabelProps()}>Enter a fruit</label>
-        <input {...getInputProps()} />
-        <ul {...getMenuProps()}>
-          {isOpen
-            ? items
-                .filter(item => !inputValue || item.value.includes(inputValue))
-                .map((item, index) => (
-                  <li
-                    {...getItemProps({
-                      key: item.value,
-                      index,
-                      item,
-                      style: {
-                        backgroundColor:
-                          highlightedIndex === index ? 'lightgray' : 'white',
-                        fontWeight: selectedItem === item ? 'bold' : 'normal',
-                      },
-                    })}
+        <div>
+          <HeadCell
+            style={{ width: fixedColWidth }}
+            flex="0 0 auto"
+            render={() => (
+              <Checkbox
+                checked={selectAllCheckboxState}
+                dataCy="check-all-checkbox"
+                onChange={() =>
+                  onSelection({
+                    items: rows.map(({ node }) => node.id),
+                  })
+                }
+              />
+            )}
+          />
+          {visibleColumns.map((cell, index) => (
+            <HeadCell
+              key={index}
+              selected={cell}
+              flex={columnFlex[index]}
+              render={props => <div {...props}>{cell.label}</div>}
+            />
+          ))}
+          <RowOptionsCell
+            head
+            width={fixedColWidth}
+            render={({ isOpen, ...props }) => (
+              <IconButton {...props} color={isOpen ? 'red' : '#555'} size="18px">
+                {viewType === 'LIST_VIEW' ? 'view_list' : 'view_module'}
+              </IconButton>
+            )}
+          />
+        </div>
+        <section>
+            {sort(defaultSortMethod, rows).map(({ cursor, node: row }, key) => (
+              <Row key={cursor} selectable>
+                <RowItem style={{ width: fixedColWidth }} flex="0 0 auto">
+                  <Checkbox
+                    id={row.id}
+                    checked={checkboxState(row.id)}
+                    dataCy={`row-checkbox-${key}`}
+                    onChange={() => checkboxToggle({ rowId: row.id })}
+                  />
+                </RowItem>
+                {visibleColumns.map(({ label, sortField, isLocked }, index) => (
+                  <RowItem
+                    key={sortField}
+                    flex={columnFlex[index]}
+                    cursor="pointer"
+                    checked={checkboxState(row.id)}
+                    onClick={() => alert(`🦄 clicked on a row ${row.id}`)}
                   >
-                    {item.value}
-                  </li>
-                ))
-            : null}
-        </ul>
-      </div>
+                    {isLocked && `🔒 `}
+                    {index === 0 && `🌄 `}
+                    {fieldReducer(
+                      getObjectPropertyByString(row, sortField),
+                      sortField,
+                    )}
+                  </RowItem>
+                ))}
+                <RowOptionsCell
+                  width={fixedColWidth}
+                  checked={checkboxState(row.id)}
+                  render={({ isOpen, ...props }) => (
+                    <IconButton
+                      {...props}
+                      color={isOpen ? 'red' : '#999'}
+                      size="18px"
+                    >
+                      more_horiz
+                    </IconButton>
+                  )}
+                />
+              </Row>
+            ))}
+          </section>
+        </div>
     )}
-  </Downshift>,
+  </DataBrowser>,
   document.getElementById('root'),
 )
 ```
 
-`<Downshift />` is the only component exposed by this package. It doesn't render
-anything itself, it just calls the render function and renders that.
+`<DataBrowser />` and `withDataBrowser()` are the only components exposed by this package. It doesn't render anything itself, it just calls the render function and renders that
 ["Use a render prop!"][use-a-render-prop]!
-`<Downshift>{downshift => <div>/* your JSX here! */</div>}</Downshift>`.
+`<DataBrowser>{props => <div>/* your JSX here! */</div>}</DataBrowser>`.
 
 
 ## LICENSE
