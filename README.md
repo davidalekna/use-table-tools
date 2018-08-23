@@ -49,6 +49,8 @@ npm install --save react-data-browser
 
 ## Usage
 
+> NOTE: This example is using styled-components to make it easier to visualise the usage.
+
 > [Try it out in the browser](https://codesandbox.io/s/6z67jvklw3)
 
 ```jsx
@@ -72,8 +74,8 @@ render(
       viewType,
       defaultSortMethod,
     }) => (
-      <div>
-        <div>
+      <Table>
+        <FixedTableHead>
           <HeadCell
             style={{ width: fixedColWidth }}
             flex="0 0 auto"
@@ -106,8 +108,11 @@ render(
               </IconButton>
             )}
           />
-        </div>
-        <section>
+        </FixedTableHead>
+        {viewType === 'GRID_VIEW' ? (
+          <div>Grid View</div>
+        ) : (
+          <TableBody>
             {sort(defaultSortMethod, rows).map(({ cursor, node: row }, key) => (
               <Row key={cursor} selectable>
                 <RowItem style={{ width: fixedColWidth }} flex="0 0 auto">
@@ -149,8 +154,17 @@ render(
                 />
               </Row>
             ))}
-          </section>
-        </div>
+            <TableFooter>
+              <FetchMore
+                fetchMore={fetchMore}
+                pageInfo={pageInfo}
+                loading={loading && networkStatus === 3}
+                typeName={typeName}
+              />
+            </TableFooter>
+          </TableBody>
+        )}
+      </Table>
     )}
   </DataBrowser>,
   document.getElementById('root'),
