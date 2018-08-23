@@ -1,5 +1,5 @@
 <h1 align="center">
-  DataBrowser 📜 
+  DataBrowser 🗄 
 </h1>
 <p align="center" style="font-size: 1.2rem;">Primitive to build simple, flexible, enhanced data views like table or grid React components</p>
 
@@ -49,7 +49,7 @@ npm install --save react-data-browser
 
 ## Usage
 
-> NOTE: This example is using styled-components to make it easier to visualise the usage.
+> NOTE: This example is using styled-components to make it easier to visualize the usage.
 
 > [Try it out in the browser](https://codesandbox.io/s/6z67jvklw3)
 
