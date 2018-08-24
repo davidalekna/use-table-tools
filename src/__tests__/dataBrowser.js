@@ -31,14 +31,28 @@ test('should return visibleColumns in shape of columnFlex', () => {
   expect(visibleColumns.length).toEqual(columnFlex.length);
 });
 
-test('should replace existing column with selected offset column', () => {
+test('switchColumns should switch column accordingly', () => {
   const handleStateChange = jest.fn();
-  const props = setup();
+  const { switchColumns } = setup({ onStateChange: handleStateChange });
+  switchColumns({ from: 'name', to: 'body' });
+  const changes = {
+    type: '__switch_columns__',
+    visibleColumns: [
+      { label: 'item id', sortField: 'id', isLocked: true },
+      { label: 'post id', sortField: 'postId' },
+      { label: 'body', sortField: 'body' },
+      { label: 'email', sortField: 'email' },
+    ],
+  };
+  expect(handleStateChange).toHaveBeenCalledTimes(1);
+  expect(handleStateChange).toHaveBeenLastCalledWith(
+    changes,
+    expect.objectContaining({}),
+  );
 });
 
 function setup({
   render: renderFn = () => <div />,
-  data = mockData,
   columns = mockColumns,
   ...props
 } = {}) {
@@ -48,7 +62,7 @@ function setup({
     return renderFn(controllerArg);
   });
   const utils = render(
-    <DataBrowser data={data} columns={columns} {...props}>
+    <DataBrowser columns={columns} {...props}>
       {childrenSpy}
     </DataBrowser>,
   );
