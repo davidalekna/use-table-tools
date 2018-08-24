@@ -47,6 +47,7 @@ export class DataBrowser extends React.Component {
     onStateChange: () => {},
     viewsAvailable: ['LIST_VIEW', 'GRID_VIEW'],
     columnFlex: ['0 0 25%', '1 1 35%', '0 0 20%', '0 0 20%'],
+    debug: false,
   };
   static stateChangeTypes = {
     deselectAll: '__deselect_all__',
@@ -249,7 +250,7 @@ export class DataBrowser extends React.Component {
           })
           .map(
             ({ type: ignoredType, ...onlyChanges }) =>
-              console.info(ignoredType) || onlyChanges,
+              (this.props.debug && console.info(ignoredType)) || onlyChanges,
           )
           .map(c => {
             return Object.keys(combinedState).reduce((newChanges, stateKey) => {

@@ -47,7 +47,7 @@ test('switchColumns should switch column accordingly', () => {
   expect(handleStateChange).toHaveBeenCalledTimes(1);
   expect(handleStateChange).toHaveBeenLastCalledWith(
     changes,
-    expect.objectContaining({}),
+    expect.objectContaining({ visibleColumns: changes.visibleColumns }),
   );
 });
 
