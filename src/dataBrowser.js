@@ -8,7 +8,6 @@ const DataBrowserContext = React.createContext({
   selected: [],
   columns: [],
   visibleColumns: [],
-  data: [],
   viewType: '',
   selectAllCheckboxState: false,
   currentSort: {},
