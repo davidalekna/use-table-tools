@@ -80,7 +80,7 @@ export class DataBrowser extends React.Component {
       .columns.filter(c => !c.isLocked)
       .map(column => {
         if (visible.indexOf(column.sortField) > -1) {
-          return { ...column, offset: true };
+          return { ...column, offset: true }; // offset actually means visible, rename!
         } else {
           return column;
         }
