@@ -70,11 +70,11 @@ test('checkboxState should check if checbox on or off', () => {
   expect(result_6).toBeFalsy();
 });
 
-test('offsetColumns should get all columns except isLocked property with offset prop', () => {
-  const { offsetColumns } = setup();
-  const columns = offsetColumns();
-  console.log(columns);
-});
+// test('offsetColumns should get all columns except isLocked property with offset prop', () => {
+//   const { offsetColumns } = setup();
+//   const columns = offsetColumns();
+//   console.log(columns);
+// });
 
 function setup({
   render: renderFn = () => <div />,
