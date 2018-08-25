@@ -1,5 +1,5 @@
 <h1 align="center">
-  DataBrowser 🗄 
+  DataBrowser 🗄 (beta)
 </h1>
 <p align="center" style="font-size: 1.2rem;">Primitive to build simple, flexible, enhanced data views like table or grid React components</p>
 
