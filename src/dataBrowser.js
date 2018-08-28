@@ -216,6 +216,7 @@ export class DataBrowser extends React.Component {
       sortField: '',
     },
     checked: [],
+    onSelect: this.props.onSelect,
     //
     switchViewType: this.switchViewType,
     switchColumns: this.switchColumns,
