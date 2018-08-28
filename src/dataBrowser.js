@@ -27,7 +27,6 @@ export class DataBrowser extends React.Component {
   static propTypes = {
     children: PropTypes.func,
     columnFlex: PropTypes.array,
-    onSelect: PropTypes.func,
     columns: PropTypes.arrayOf(
       PropTypes.shape({
         label: PropTypes.string.isRequired,
@@ -46,7 +45,6 @@ export class DataBrowser extends React.Component {
   static defaultProps = {
     stateReducer: (state, changes) => changes,
     onStateChange: () => {},
-    onSelect: () => {},
     debug: false,
     viewsAvailable: ['LIST_VIEW', 'GRID_VIEW'],
     columnFlex: ['0 0 25%', '1 1 35%', '0 0 20%', '0 0 20%'],
@@ -216,7 +214,6 @@ export class DataBrowser extends React.Component {
       sortField: '',
     },
     checked: [],
-    onSelect: this.props.onSelect,
     //
     switchViewType: this.switchViewType,
     switchColumns: this.switchColumns,
