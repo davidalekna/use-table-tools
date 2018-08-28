@@ -55,7 +55,9 @@
     "react-dom": "^16.4.2",
     "react-testing-library": "^5.0.0"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "config": {
     "ghooks": {
       "pre-commit": "npm run validate"
