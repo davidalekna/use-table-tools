@@ -182,14 +182,14 @@ MIT
 [node]: https://nodejs.org
 [build-badge]: https://travis-ci.org/davidalekna/react-data-browser.svg?style=flat-square
 [build]: https://travis-ci.org/davidalekna/react-data-browser
-[coverage-badge]: https://img.shields.io/codecov/c/github/paypal/downshift.svg?style=flat-square
-[coverage]: https://codecov.io/github/paypal/downshift
+[coverage-badge]: https://codecov.io/gh/davidalekna/react-data-browser/branch/master/graph/badge.svg?style=flat-square
+[coverage]: https://codecov.io/gh/davidalekna/react-data-browser
 [version-badge]: https://img.shields.io/npm/v/downshift.svg?style=flat-square
 [package]: https://www.npmjs.com/package/downshift
 [downloads-badge]: https://img.shields.io/npm/dm/downshift.svg?style=flat-square
 [npmcharts]: http://npmcharts.com/compare/downshift
 [license-badge]: https://img.shields.io/npm/l/downshift.svg?style=flat-square
-[license]: https://github.com/paypal/downshift/blob/master/LICENSE
+[license]: https://github.com/davidalekna/react-data-browser/blob/master/LICENSE
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
 [chat]: https://gitter.im/paypal/downshift
