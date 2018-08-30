@@ -28,8 +28,18 @@ DataBrowser component will provide common functionalities like checkbox, sorting
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Installation](#installation)
 - [Usage](#usage)
+- [Basic Props](#basic-props)
+  - [children](#children)
+  - [columns](#columns)
+  - [columnFlex](#columnflex)
+  - [stateReducer](#statereducer)
+- [Advanced Props](#advanced-props)
+  - [onStateChange](#onstatechange)
+- [stateChangeTypes](#statechangetypes)
+- [Children Function](#children-function)
 - [LICENSE](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
