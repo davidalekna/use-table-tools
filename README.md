@@ -5,7 +5,7 @@
 
 <hr />
 
-[![Build Status][build-badge]][build]
+[![Build Status](https://travis-ci.org/davidalekna/react-data-browser.svg?branch=master)](https://travis-ci.org/davidalekna/react-data-browser)
 [![Code Coverage][coverage-badge]][coverage]
 [![downloads][downloads-badge]][npmcharts] [![version][version-badge]][package]
 [![MIT License][license-badge]][license]
