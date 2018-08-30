@@ -58,8 +58,6 @@ import DataBrowser from 'react-data-browser'
 
 const columns = []
 
-const items = []
-
 render(
   <DataBrowser columns={columns}>
     {({
@@ -69,100 +67,9 @@ render(
       checkboxState,
       onSelection,
       checkboxToggle,
-      viewType,
-      defaultSortMethod,
+      viewType
     }) => (
-      <Table>
-        <FixedTableHead>
-          <HeadCell
-            style={{ width: fixedColWidth }}
-            flex="0 0 auto"
-            render={() => (
-              <Checkbox
-                checked={selectAllCheckboxState}
-                dataCy="check-all-checkbox"
-                onChange={() =>
-                  onSelection({
-                    items: rows.map(({ node }) => node.id),
-                  })
-                }
-              />
-            )}
-          />
-          {visibleColumns.map((cell, index) => (
-            <HeadCell
-              key={index}
-              selected={cell}
-              flex={columnFlex[index]}
-              render={props => <div {...props}>{cell.label}</div>}
-            />
-          ))}
-          <RowOptionsCell
-            head
-            width={fixedColWidth}
-            render={({ isOpen, ...props }) => (
-              <IconButton {...props} color={isOpen ? 'red' : '#555'} size="18px">
-                {viewType === 'LIST_VIEW' ? 'view_list' : 'view_module'}
-              </IconButton>
-            )}
-          />
-        </FixedTableHead>
-        {viewType === 'GRID_VIEW' ? (
-          <div>Grid View</div>
-        ) : (
-          <TableBody>
-            {sort(defaultSortMethod, rows).map(({ cursor, node: row }, key) => (
-              <Row key={cursor} selectable>
-                <RowItem style={{ width: fixedColWidth }} flex="0 0 auto">
-                  <Checkbox
-                    id={row.id}
-                    checked={checkboxState(row.id)}
-                    dataCy={`row-checkbox-${key}`}
-                    onChange={() => checkboxToggle({ rowId: row.id })}
-                  />
-                </RowItem>
-                {visibleColumns.map(({ label, sortField, isLocked }, index) => (
-                  <RowItem
-                    key={sortField}
-                    flex={columnFlex[index]}
-                    cursor="pointer"
-                    checked={checkboxState(row.id)}
-                    onClick={() => alert(`🦄 clicked on a row ${row.id}`)}
-                  >
-                    {isLocked && `🔒 `}
-                    {index === 0 && `🌄 `}
-                    {fieldReducer(
-                      getObjectPropertyByString(row, sortField),
-                      sortField,
-                    )}
-                  </RowItem>
-                ))}
-                <RowOptionsCell
-                  width={fixedColWidth}
-                  checked={checkboxState(row.id)}
-                  render={({ isOpen, ...props }) => (
-                    <IconButton
-                      {...props}
-                      color={isOpen ? 'red' : '#999'}
-                      size="18px"
-                    >
-                      more_horiz
-                    </IconButton>
-                  )}
-                />
-              </Row>
-            ))}
-            <TableFooter>
-              <FetchMore
-                fetchMore={fetchMore}
-                pageInfo={pageInfo}
-                loading={loading && networkStatus === 3}
-                typeName={typeName}
-              />
-            </TableFooter>
-          </TableBody>
-        )}
-      </Table>
+      <div />
     )}
   </DataBrowser>,
   document.getElementById('root'),
