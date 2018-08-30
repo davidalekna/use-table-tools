@@ -39,9 +39,11 @@
     "@babel/core": "^7.0.0",
     "@babel/plugin-proposal-class-properties": "^7.0.0",
     "@babel/plugin-proposal-logical-assignment-operators": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/plugin-syntax-object-rest-spread": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^9.0.0",
     "babel-jest": "^23.4.2",
     "codecov": "^3.0.4",
@@ -57,8 +59,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-testing-library": "^5.0.0",
-    "regenerator-runtime": "^0.12.1"
+    "react-testing-library": "^5.0.0"
   },
   "files": [
     "dist"
