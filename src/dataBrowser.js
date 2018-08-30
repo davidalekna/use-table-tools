@@ -130,7 +130,7 @@ export class DataBrowser extends React.Component {
       }));
     }
   };
-  checkboxState = value => this.getState().checked.indexOf(value) !== -1;
+  checkboxState = value => this.getState().checked.includes(value);
   switchViewType = ({
     type = DataBrowser.stateChangeTypes.switchView,
     viewType,
