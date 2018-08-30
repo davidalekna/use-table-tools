@@ -80,6 +80,127 @@ render(
 ["Use a render prop!"][use-a-render-prop]!
 `<DataBrowser>{props => <div>/* your JSX here! */</div>}</DataBrowser>`.
 
+## Basic Props
+
+This is the list of props that you should probably know about. There are some
+[advanced props](#advanced-props) below as well.
+
+### children
+
+> `function({})` | _required_
+
+This is called with an object. Read more about the properties of this object in
+the section "[Children Function](#children-function)".
+
+### columns
+
+> `Array<>` | _required_
+
+Provide columns array that you wish to be visible in your component.
+
+### columnFlex
+
+> `Array<>` | optional
+
+Takes in an array of flexbox flex parameters for your columns, for example '1 1 40%'
+
+### stateReducer
+
+> `function(state: object, changes: object)` | optional
+
+**🚨 This is a really handy power feature 🚨**
+
+This function will be called each time `react-data-browser` sets its internal state
+(or calls your `onStateChange` handler for control props). It allows you to
+modify the state change that will take place which can give you fine grain
+control over how the component interacts with user updates without having to
+use [Control Props](#control-props). It gives you the current state and the
+state that will be set, and you return the state that you want to set.
+
+- `state`: The full current state of react-data-browser.
+- `changes`: These are the properties that are about to change. This also has a
+  `type` property which you can learn more about in the
+  [`stateChangeTypes`](#statechangetypes) section.
+
+```jsx
+const ui = (
+  <DataBrowser stateReducer={stateReducer}>{/* your callback */}</DataBrowser>
+)
+
+function stateReducer(state, changes) {
+  switch (changes.type) {
+    default:
+      return changes
+  }
+}
+```
+
+## Advanced Props
+
+### onStateChange
+
+> `function(changes: object, stateAndHelpers: object)` | optional, no useful
+> default
+
+This function is called anytime the internal state changes. This can be useful
+if you're using react-data-browser as a "controlled" component, where you manage some or
+all of the state and then pass it as props, rather than letting react-data-browser control 
+all its state itself. The parameters both take the shape of internal state but differ slightly.
+
+- `changes`: These are the properties that actually have changed since the last
+  state change. This also has a `type` property which you can learn more about
+  in the [`stateChangeTypes`](#statechangetypes) section.
+- `stateAndHelpers`: This is the exact same thing your `children` function is
+  called with (see [Children Function](#children-function))
+
+> Tip: This function will be called any time _any_ state is changed. The best
+> way to determine whether any particular state was changed, you can use
+> `changes.hasOwnProperty('propName')`.
+
+```jsx
+class App extends React.Component {
+  state = { rows: [] }
+  onStateChange = (action, { defaultSortMethod }) => {
+    if (action.type === "__sort_data__") {
+      this.setState(state => ({
+        rows: sort(defaultSortMethod, state.rows)
+      }));
+    }
+  }
+  render() {
+    <DataBrowser onStateChange={this.onStateChange}>{/* your callback */}</DataBrowser>
+  }
+}
+```
+
+## stateChangeTypes
+
+There are a few props that expose changes to state
+([`onStateChange`](#onstatechange) and [`stateReducer`](#statereducer)).
+For you to make the most of these APIs, it's important for you to understand
+why state is being changed. To accomplish this, there's a `type` property on the
+`changes` object you get. This `type` corresponds to a
+`DataBrowser.stateChangeTypes` property. If you want to see what change types
+are available, run this in your app:
+
+```javascript
+console.log(Object.keys(DataBrowser.stateChangeTypes))
+```
+
+## Children Function
+
+This is where you render whatever you want to based on the state of `react-data-browser`.
+You use it like so:
+
+```javascript
+const ui = (
+  <DataBrowser>
+    {props => (
+      <div>{/* more jsx here */}</div>
+    )}
+  </DataBrowser>
+)
+```
 
 ## LICENSE
 
