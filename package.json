@@ -32,7 +32,9 @@
     "test:watch": "jest --watch",
     "prepare": "npm run build",
     "validate": "npm-run-all --parallel test build",
-    "report-coverage": "codecov"
+    "report-coverage": "codecov",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
@@ -59,7 +61,12 @@
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-testing-library": "^5.0.0"
+    "react-testing-library": "^5.0.0",
+    "@storybook/react": "^3.4.10",
+    "@storybook/addon-actions": "^3.4.10",
+    "@storybook/addon-links": "^3.4.10",
+    "@storybook/addons": "^3.4.10",
+    "babel-runtime": "^6.26.0"
   },
   "files": [
     "dist"
@@ -68,5 +75,6 @@
     "ghooks": {
       "pre-commit": "npm run validate"
     }
-  }
+  },
+  "dependencies": {}
 }
