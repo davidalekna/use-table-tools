@@ -31,7 +31,8 @@
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "prepare": "npm run build",
-    "validate": "npm-run-all --parallel test build"
+    "validate": "npm-run-all --parallel test build",
+    "report-coverage": "codecov"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -40,6 +41,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
+    "codecov": "^3.0.4",
     "eslint": "^5.4.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
