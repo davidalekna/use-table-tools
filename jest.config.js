@@ -9,12 +9,12 @@ module.exports = {
   testPathIgnorePatterns: [...ignores],
   testMatch: ['**/__tests__/**/*.+(js|jsx|ts|tsx)'],
   coveragePathIgnorePatterns: [...ignores],
-  // coverageThreshold: {
-  //   global: {
-  //     branches: 100,
-  //     functions: 100,
-  //     lines: 100,
-  //     statements: 100,
-  //   },
-  // },
+  coverageThreshold: {
+    global: {
+      branches: 20,
+      functions: 30,
+      lines: 30,
+      statements: 30,
+    },
+  },
 };

@@ -45,9 +45,9 @@ export class DataBrowser extends React.Component {
   static defaultProps = {
     stateReducer: (state, changes) => changes,
     onStateChange: () => {},
+    debug: false,
     viewsAvailable: ['LIST_VIEW', 'GRID_VIEW'],
     columnFlex: ['0 0 25%', '1 1 35%', '0 0 20%', '0 0 20%'],
-    debug: false,
   };
   static stateChangeTypes = {
     deselectAll: '__deselect_all__',
@@ -56,6 +56,7 @@ export class DataBrowser extends React.Component {
     switchColumns: '__switch_columns__',
     switchView: '__switch_view__',
     sortData: '__sort_data__',
+    onItemClick: '__on_item_select__',
   };
   static Consumer = DataBrowserContext.Consumer;
   switchColumns = ({
@@ -129,7 +130,7 @@ export class DataBrowser extends React.Component {
       }));
     }
   };
-  checkboxState = value => this.getState().checked.indexOf(value) !== -1;
+  checkboxState = value => this.getState().checked.includes(value);
   switchViewType = ({
     type = DataBrowser.stateChangeTypes.switchView,
     viewType,

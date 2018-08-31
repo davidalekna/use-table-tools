@@ -7,9 +7,7 @@
 
 [![Build Status][build-badge]][build]
 [![Code Coverage][coverage-badge]][coverage]
-[![downloads][downloads-badge]][npmcharts] [![version][version-badge]][package]
 [![MIT License][license-badge]][license]
-
 [![PRs Welcome][prs-badge]][prs] 
 [![Code of Conduct][coc-badge]][coc]
 [![size][size-badge]][unpkg-dist] [![gzip size][gzip-badge]][unpkg-dist]
@@ -30,8 +28,18 @@ DataBrowser component will provide common functionalities like checkbox, sorting
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Installation](#installation)
 - [Usage](#usage)
+- [Basic Props](#basic-props)
+  - [children](#children)
+  - [columns](#columns)
+  - [columnFlex](#columnflex)
+  - [stateReducer](#statereducer)
+- [Advanced Props](#advanced-props)
+  - [onStateChange](#onstatechange)
+- [stateChangeTypes](#statechangetypes)
+- [Children Function](#children-function)
 - [LICENSE](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -60,8 +68,6 @@ import DataBrowser from 'react-data-browser'
 
 const columns = []
 
-const items = []
-
 render(
   <DataBrowser columns={columns}>
     {({
@@ -71,100 +77,9 @@ render(
       checkboxState,
       onSelection,
       checkboxToggle,
-      viewType,
-      defaultSortMethod,
+      viewType
     }) => (
-      <Table>
-        <FixedTableHead>
-          <HeadCell
-            style={{ width: fixedColWidth }}
-            flex="0 0 auto"
-            render={() => (
-              <Checkbox
-                checked={selectAllCheckboxState}
-                dataCy="check-all-checkbox"
-                onChange={() =>
-                  onSelection({
-                    items: rows.map(({ node }) => node.id),
-                  })
-                }
-              />
-            )}
-          />
-          {visibleColumns.map((cell, index) => (
-            <HeadCell
-              key={index}
-              selected={cell}
-              flex={columnFlex[index]}
-              render={props => <div {...props}>{cell.label}</div>}
-            />
-          ))}
-          <RowOptionsCell
-            head
-            width={fixedColWidth}
-            render={({ isOpen, ...props }) => (
-              <IconButton {...props} color={isOpen ? 'red' : '#555'} size="18px">
-                {viewType === 'LIST_VIEW' ? 'view_list' : 'view_module'}
-              </IconButton>
-            )}
-          />
-        </FixedTableHead>
-        {viewType === 'GRID_VIEW' ? (
-          <div>Grid View</div>
-        ) : (
-          <TableBody>
-            {sort(defaultSortMethod, rows).map(({ cursor, node: row }, key) => (
-              <Row key={cursor} selectable>
-                <RowItem style={{ width: fixedColWidth }} flex="0 0 auto">
-                  <Checkbox
-                    id={row.id}
-                    checked={checkboxState(row.id)}
-                    dataCy={`row-checkbox-${key}`}
-                    onChange={() => checkboxToggle({ rowId: row.id })}
-                  />
-                </RowItem>
-                {visibleColumns.map(({ label, sortField, isLocked }, index) => (
-                  <RowItem
-                    key={sortField}
-                    flex={columnFlex[index]}
-                    cursor="pointer"
-                    checked={checkboxState(row.id)}
-                    onClick={() => alert(`🦄 clicked on a row ${row.id}`)}
-                  >
-                    {isLocked && `🔒 `}
-                    {index === 0 && `🌄 `}
-                    {fieldReducer(
-                      getObjectPropertyByString(row, sortField),
-                      sortField,
-                    )}
-                  </RowItem>
-                ))}
-                <RowOptionsCell
-                  width={fixedColWidth}
-                  checked={checkboxState(row.id)}
-                  render={({ isOpen, ...props }) => (
-                    <IconButton
-                      {...props}
-                      color={isOpen ? 'red' : '#999'}
-                      size="18px"
-                    >
-                      more_horiz
-                    </IconButton>
-                  )}
-                />
-              </Row>
-            ))}
-            <TableFooter>
-              <FetchMore
-                fetchMore={fetchMore}
-                pageInfo={pageInfo}
-                loading={loading && networkStatus === 3}
-                typeName={typeName}
-              />
-            </TableFooter>
-          </TableBody>
-        )}
-      </Table>
+      <div />
     )}
   </DataBrowser>,
   document.getElementById('root'),
@@ -175,6 +90,127 @@ render(
 ["Use a render prop!"][use-a-render-prop]!
 `<DataBrowser>{props => <div>/* your JSX here! */</div>}</DataBrowser>`.
 
+## Basic Props
+
+This is the list of props that you should probably know about. There are some
+[advanced props](#advanced-props) below as well.
+
+### children
+
+> `function({})` | _required_
+
+This is called with an object. Read more about the properties of this object in
+the section "[Children Function](#children-function)".
+
+### columns
+
+> `Array<>` | _required_
+
+Provide columns array that you wish to be visible in your component.
+
+### columnFlex
+
+> `Array<>` | optional
+
+Takes in an array of flexbox flex parameters for your columns, for example '1 1 40%'
+
+### stateReducer
+
+> `function(state: object, changes: object)` | optional
+
+**🚨 This is a really handy power feature 🚨**
+
+This function will be called each time `react-data-browser` sets its internal state
+(or calls your `onStateChange` handler for control props). It allows you to
+modify the state change that will take place which can give you fine grain
+control over how the component interacts with user updates without having to
+use [Control Props](#control-props). It gives you the current state and the
+state that will be set, and you return the state that you want to set.
+
+- `state`: The full current state of react-data-browser.
+- `changes`: These are the properties that are about to change. This also has a
+  `type` property which you can learn more about in the
+  [`stateChangeTypes`](#statechangetypes) section.
+
+```jsx
+const ui = (
+  <DataBrowser stateReducer={stateReducer}>{/* your callback */}</DataBrowser>
+)
+
+function stateReducer(state, changes) {
+  switch (changes.type) {
+    default:
+      return changes
+  }
+}
+```
+
+## Advanced Props
+
+### onStateChange
+
+> `function(changes: object, stateAndHelpers: object)` | optional, no useful
+> default
+
+This function is called anytime the internal state changes. This can be useful
+if you're using react-data-browser as a "controlled" component, where you manage some or
+all of the state and then pass it as props, rather than letting react-data-browser control 
+all its state itself. The parameters both take the shape of internal state but differ slightly.
+
+- `changes`: These are the properties that actually have changed since the last
+  state change. This also has a `type` property which you can learn more about
+  in the [`stateChangeTypes`](#statechangetypes) section.
+- `stateAndHelpers`: This is the exact same thing your `children` function is
+  called with (see [Children Function](#children-function))
+
+> Tip: This function will be called any time _any_ state is changed. The best
+> way to determine whether any particular state was changed, you can use
+> `changes.hasOwnProperty('propName')`.
+
+```jsx
+class App extends React.Component {
+  state = { rows: [] }
+  onStateChange = (action, { defaultSortMethod }) => {
+    if (action.type === "__sort_data__") {
+      this.setState(state => ({
+        rows: sort(defaultSortMethod, state.rows)
+      }));
+    }
+  }
+  render() {
+    <DataBrowser onStateChange={this.onStateChange}>{/* your callback */}</DataBrowser>
+  }
+}
+```
+
+## stateChangeTypes
+
+There are a few props that expose changes to state
+([`onStateChange`](#onstatechange) and [`stateReducer`](#statereducer)).
+For you to make the most of these APIs, it's important for you to understand
+why state is being changed. To accomplish this, there's a `type` property on the
+`changes` object you get. This `type` corresponds to a
+`DataBrowser.stateChangeTypes` property. If you want to see what change types
+are available, run this in your app:
+
+```javascript
+console.log(Object.keys(DataBrowser.stateChangeTypes))
+```
+
+## Children Function
+
+This is where you render whatever you want to based on the state of `react-data-browser`.
+You use it like so:
+
+```javascript
+const ui = (
+  <DataBrowser>
+    {props => (
+      <div>{/* more jsx here */}</div>
+    )}
+  </DataBrowser>
+)
+```
 
 ## LICENSE
 
@@ -182,27 +218,27 @@ MIT
 
 [npm]: https://www.npmjs.com/
 [node]: https://nodejs.org
-[build-badge]: https://img.shields.io/travis/paypal/downshift.svg?style=flat-square
-[build]: https://travis-ci.org/paypal/downshift
-[coverage-badge]: https://img.shields.io/codecov/c/github/paypal/downshift.svg?style=flat-square
-[coverage]: https://codecov.io/github/paypal/downshift
+[build-badge]: https://travis-ci.org/davidalekna/react-data-browser.svg?style=flat-square
+[build]: https://travis-ci.org/davidalekna/react-data-browser
+[coverage-badge]: https://codecov.io/gh/davidalekna/react-data-browser/branch/master/graph/badge.svg?style=flat-square
+[coverage]: https://codecov.io/gh/davidalekna/react-data-browser
 [version-badge]: https://img.shields.io/npm/v/downshift.svg?style=flat-square
 [package]: https://www.npmjs.com/package/downshift
 [downloads-badge]: https://img.shields.io/npm/dm/downshift.svg?style=flat-square
 [npmcharts]: http://npmcharts.com/compare/downshift
 [license-badge]: https://img.shields.io/npm/l/downshift.svg?style=flat-square
-[license]: https://github.com/paypal/downshift/blob/master/LICENSE
+[license]: https://github.com/davidalekna/react-data-browser/blob/master/LICENSE
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
 [chat]: https://gitter.im/paypal/downshift
 [chat-badge]: https://img.shields.io/gitter/room/paypal/downshift.svg?style=flat-square
 [coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
-[coc]: https://github.com/paypal/downshift/blob/master/CODE_OF_CONDUCT.md
+[coc]: https://github.com/davidalekna/react-data-browser/blob/master/CODE_OF_CONDUCT.md
 [react-badge]: https://img.shields.io/badge/%E2%9A%9B%EF%B8%8F-(p)react-00d8ff.svg?style=flat-square
 [react]: https://facebook.github.io/react/
 [gzip-badge]: http://img.badgesize.io/https://unpkg.com/downshift/dist/downshift.umd.min.js?compression=gzip&label=gzip%20size&style=flat-square
 [size-badge]: http://img.badgesize.io/https://unpkg.com/downshift/dist/downshift.umd.min.js?label=size&style=flat-square
-[unpkg-dist]: https://unpkg.com/downshift/dist/
+[unpkg-dist]: https://unpkg.com/react-data-browser/dist/
 [module-formats-badge]: https://img.shields.io/badge/module%20formats-umd%2C%20cjs%2C%20es-green.svg?style=flat-square
 [spectrum-badge]: https://withspectrum.github.io/badge/badge.svg
 [spectrum]: https://spectrum.chat/downshift

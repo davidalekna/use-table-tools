@@ -7,8 +7,6 @@
   - [Add yourself as a contributor](#add-yourself-as-a-contributor)
   - [Committing and Pushing changes](#committing-and-pushing-changes)
     - [Tests](#tests)
-    - [opt into git hooks](#opt-into-git-hooks)
-  - [Help needed](#help-needed)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
