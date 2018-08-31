@@ -55,6 +55,11 @@
     "react-dom": "^16.4.2",
     "react-testing-library": "^5.0.0"
   },
+  "peerDependencies": {
+    "react": "^15.3.0 || ^16.0.0-0",
+    "prop-types": "^15.6.0",
+    "hoist-non-react-statics": "^3.0.0"
+  },
   "files": ["dist"],
   "config": {
     "ghooks": {
