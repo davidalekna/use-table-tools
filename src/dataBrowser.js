@@ -45,7 +45,6 @@ export class DataBrowser extends React.Component {
   static defaultProps = {
     stateReducer: (state, changes) => changes,
     onStateChange: () => {},
-    debug: false,
     viewsAvailable: ['LIST_VIEW', 'GRID_VIEW'],
     columnFlex: ['0 0 25%', '1 1 35%', '0 0 20%', '0 0 20%'],
   };
@@ -81,7 +80,7 @@ export class DataBrowser extends React.Component {
       .columns.filter(c => !c.isLocked)
       .map(column => {
         if (visible.indexOf(column.sortField) > -1) {
-          return { ...column, offset: true }; // offset actually means visible, rename!
+          return { ...column, visible: true };
         } else {
           return column;
         }
@@ -249,10 +248,7 @@ export class DataBrowser extends React.Component {
             allChanges = this.props.stateReducer(combinedState, c) || {};
             return allChanges;
           })
-          .map(
-            ({ type: ignoredType, ...onlyChanges }) =>
-              (this.props.debug && console.info(ignoredType)) || onlyChanges,
-          )
+          .map(({ type: ignoredType, ...onlyChanges }) => onlyChanges)
           .map(c => {
             return Object.keys(combinedState).reduce((newChanges, stateKey) => {
               if (!this.isControlledProp(stateKey)) {
