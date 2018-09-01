@@ -55,6 +55,10 @@ npm install --save react-data-browser
 
 > This package also depends on `react`, `hoist-non-react-statics` and `prop-types`. Please make sure you have those installed as well.
 
+<!-- ## Preview
+
+![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif) -->
+
 ## Usage
 
 > NOTE: This example is using styled-components to make it easier to visualize the usage.
