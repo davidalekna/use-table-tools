@@ -59,7 +59,7 @@ npm install --save react-data-browser
 
 > NOTE: This example is using styled-components to make it easier to visualize the usage.
 
-> [Try it out in the browser](https://codesandbox.io/s/zrqpl819rx)
+> [Try it out in the browser](https://codesandbox.io/s/github/davidalekna/data-browser-examples)
 
 ```jsx
 import React from 'react'
