@@ -72,7 +72,7 @@ npm install --save react-data-browser
 
 ## Preview
 
-![Alt Text](https://ibb.co/m5oz5K)
+![](https://image.ibb.co/gKJMKe/test.gif | width=100)
 
 ## Usage
 
