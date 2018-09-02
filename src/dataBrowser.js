@@ -5,7 +5,6 @@ import { getObjectPropertyByString } from './utils';
 
 const DataBrowserContext = React.createContext({
   columnFlex: [],
-  selected: [],
   columns: [],
   visibleColumns: [],
   viewType: '',
@@ -79,7 +78,7 @@ export class DataBrowser extends React.Component {
     return this.getState()
       .columns.filter(c => !c.isLocked)
       .map(column => {
-        if (visible.indexOf(column.sortField) > -1) {
+        if (visible.includes(column.sortField)) {
           return { ...column, visible: true };
         } else {
           return column;
@@ -202,7 +201,6 @@ export class DataBrowser extends React.Component {
   };
   initialState = {
     columnFlex: this.props.columnFlex,
-    selected: [],
     columns: this.props.columns,
     visibleColumns: this.props.columns.slice(0, this.props.columnFlex.length),
     viewType: 'LIST_VIEW',
@@ -212,7 +210,7 @@ export class DataBrowser extends React.Component {
       sortDirection: '',
       sortField: '',
     },
-    checked: [],
+    checked: this.props.checked,
     //
     switchViewType: this.switchViewType,
     switchColumns: this.switchColumns,

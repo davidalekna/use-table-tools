@@ -37,6 +37,21 @@ DataBrowser component will provide common functionalities like checkbox, sorting
   - [columnFlex](#columnflex)
   - [stateReducer](#statereducer)
 - [Advanced Props](#advanced-props)
+  - [visibleColumns](#visiblecolumns)
+  - [viewType](#viewtype)
+  - [selectAllCheckboxState](#selectallcheckboxstate)
+  - [currentSort](#currentsort)
+  - [checked](#checked)
+  - [viewsAvailable](#viewsavailable)
+  - [switchViewType](#switchviewtype)
+  - [switchColumns](#switchcolumns)
+  - [checkboxState](#checkboxstate)
+  - [offsetColumns](#offsetcolumns)
+  - [checkboxToggle](#checkboxtoggle)
+  - [onSelection](#onselection)
+  - [changeSortDirection](#changesortdirection)
+  - [defaultSortMethod](#defaultsortmethod)
+  - [sortData](#sortdata)
   - [onStateChange](#onstatechange)
 - [stateChangeTypes](#statechangetypes)
 - [Children Function](#children-function)
@@ -151,6 +166,94 @@ function stateReducer(state, changes) {
 
 ## Advanced Props
 
+### visibleColumns
+
+> `Array<>` | defaults to a generated visibleColumns
+
+Use for displaying head columns and row columns. 
+
+### viewType
+
+> `string` | defaults to 'LIST_VIEW'
+
+### selectAllCheckboxState
+
+> `boolean` | defaults to false
+
+Select all checkbox state
+
+### currentSort
+
+> `object` | defaults to currentSort: { sortDirection: '', sortField: '' }
+
+Current sort holds sortDirection string and sortField string
+
+### checked
+
+> `Array<>` | control prop
+
+state that holds selected items
+
+### viewsAvailable
+
+> `Array<>` | defaults to internal implementation
+
+defaults to ['LIST_VIEW', 'GRID_VIEW']
+
+### switchViewType
+
+> `function(props: object)` | defaults to internal implementation
+
+accepts view type string from viewsAvailable controlled prop
+
+### switchColumns
+
+> `function(props: object)` | defaults to internal implementation
+
+will accept an object with params from and to. Providing sortFields columns will be replaced from - to.
+
+### checkboxState
+
+> `function(props: string)` | defaults to internal implementation
+
+will check weather item is checked or not. Returns boolean
+
+### offsetColumns
+
+> `function()` | defaults to internal implementation
+
+will return offset columns with additional prop 'visible' if that column is already displayed.
+
+### checkboxToggle
+
+> `function(props: string)` | defaults to internal implementation
+
+will accept item id and toggle the checkbox for that item 
+
+### onSelection
+
+> `function(props: object)` | defaults to internal implementation
+
+function for 'select all checbox'. 
+
+### changeSortDirection
+
+> `function(props: object)` | defaults to internal implementation
+
+changes sort direction, will accept an object with {sortDirection: string}
+
+### defaultSortMethod
+
+> `function()` | defaults to internal implementation
+
+default sort method for client side sort implementation
+
+### sortData
+
+> `function()` | defaults to internal implementation
+
+will accept sortField and sortDirection
+
 ### onStateChange
 
 > `function(changes: object, stateAndHelpers: object)` | optional, no useful
@@ -226,16 +329,10 @@ MIT
 [build]: https://travis-ci.org/davidalekna/react-data-browser
 [coverage-badge]: https://codecov.io/gh/davidalekna/react-data-browser/branch/master/graph/badge.svg?style=flat-square
 [coverage]: https://codecov.io/gh/davidalekna/react-data-browser
-[version-badge]: https://img.shields.io/npm/v/downshift.svg?style=flat-square
-[package]: https://www.npmjs.com/package/downshift
-[downloads-badge]: https://img.shields.io/npm/dm/downshift.svg?style=flat-square
-[npmcharts]: http://npmcharts.com/compare/downshift
 [license-badge]: https://img.shields.io/npm/l/downshift.svg?style=flat-square
 [license]: https://github.com/davidalekna/react-data-browser/blob/master/LICENSE
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
-[chat]: https://gitter.im/paypal/downshift
-[chat-badge]: https://img.shields.io/gitter/room/paypal/downshift.svg?style=flat-square
 [coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
 [coc]: https://github.com/davidalekna/react-data-browser/blob/master/CODE_OF_CONDUCT.md
 [react-badge]: https://img.shields.io/badge/%E2%9A%9B%EF%B8%8F-(p)react-00d8ff.svg?style=flat-square
@@ -243,20 +340,3 @@ MIT
 [gzip-badge]: http://img.badgesize.io/https://unpkg.com/downshift/dist/downshift.umd.min.js?compression=gzip&label=gzip%20size&style=flat-square
 [size-badge]: http://img.badgesize.io/https://unpkg.com/downshift/dist/downshift.umd.min.js?label=size&style=flat-square
 [unpkg-dist]: https://unpkg.com/react-data-browser/dist/
-[module-formats-badge]: https://img.shields.io/badge/module%20formats-umd%2C%20cjs%2C%20es-green.svg?style=flat-square
-[spectrum-badge]: https://withspectrum.github.io/badge/badge.svg
-[spectrum]: https://spectrum.chat/downshift
-[emojis]: https://github.com/kentcdodds/all-contributors#emoji-key
-[all-contributors]: https://github.com/kentcdodds/all-contributors
-[ryan]: https://github.com/ryanflorence
-[compound-components-lecture]: https://courses.reacttraining.com/courses/advanced-react/lectures/3060560
-[react-autocomplete]: https://www.npmjs.com/package/react-autocomplete
-[jquery-complete]: https://jqueryui.com/autocomplete/
-[examples]: https://codesandbox.io/search?refinementList%5Btags%5D%5B0%5D=downshift%3Aexample&page=1
-[yt-playlist]: https://www.youtube.com/playlist?list=PLV5CVI1eNcJh5CTgArGVwANebCrAh2OUE
-[jared]: https://github.com/jaredly
-[controlled-components-lecture]: https://courses.reacttraining.com/courses/advanced-react/lectures/3172720
-[react-training]: https://reacttraining.com/
-[advanced-react]: https://courses.reacttraining.com/courses/enrolled/200086
-[use-a-render-prop]: https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce
-[semver]: http://semver.org/
