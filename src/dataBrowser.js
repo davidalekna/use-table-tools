@@ -40,12 +40,14 @@ export class DataBrowser extends React.Component {
     stateReducer: PropTypes.func,
     viewType: PropTypes.string,
     viewsAvailable: PropTypes.array,
+    totalItems: PropTypes.number,
   };
   static defaultProps = {
     stateReducer: (state, changes) => changes,
     onStateChange: () => {},
     viewsAvailable: ['LIST_VIEW', 'GRID_VIEW'],
     columnFlex: ['0 0 25%', '1 1 35%', '0 0 20%', '0 0 20%'],
+    totalItems: 0,
   };
   static stateChangeTypes = {
     deselectAll: '__deselect_all__',
@@ -115,11 +117,18 @@ export class DataBrowser extends React.Component {
     rowId,
   } = {}) => {
     if (!this.getState().checked.includes(rowId)) {
-      this.internalSetState(state => ({
-        type,
-        selectAllCheckboxState: false,
-        checked: [...state.checked, rowId],
-      }));
+      this.internalSetState(
+        state => ({
+          type,
+          checked: [...state.checked, rowId],
+        }),
+        () => {
+          this.setState(state => ({
+            selectAllCheckboxState:
+              this.props.totalItems === state.checked.length ? true : false,
+          }));
+        },
+      );
     } else {
       this.internalSetState(state => ({
         type,

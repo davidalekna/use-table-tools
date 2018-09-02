@@ -127,6 +127,12 @@ the section "[Children Function](#children-function)".
 
 Provide columns array that you wish to be visible in your component.
 
+### totalItems
+
+> number | optional
+
+requires total items length (number) for the checkboxes to work properly
+
 ### columnFlex
 
 > `Array<>` | optional
