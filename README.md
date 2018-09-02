@@ -70,10 +70,6 @@ npm install --save react-data-browser
 
 > This package also depends on `react`, `hoist-non-react-statics` and `prop-types`. Please make sure you have those installed as well.
 
-## Preview
-
-![](https://image.ibb.co/gKJMKe/test.gif | width=100)
-
 ## Usage
 
 > NOTE: DataBrowser component will not provide any styles, only the functionality. Styles used in the examples are only for better visualization for what could be achieved using this component.
