@@ -114,7 +114,7 @@ export class DataBrowser extends React.Component {
     type = DataBrowser.stateChangeTypes.checkboxToggle,
     rowId,
   } = {}) => {
-    if (this.getState().checked.indexOf(rowId) === -1) {
+    if (!this.getState().checked.includes(rowId)) {
       this.internalSetState(state => ({
         type,
         selectAllCheckboxState: false,
@@ -133,7 +133,7 @@ export class DataBrowser extends React.Component {
     type = DataBrowser.stateChangeTypes.switchView,
     viewType,
   }) => {
-    if (this.state.viewsAvailable.indexOf(viewType) > -1) {
+    if (this.state.viewsAvailable.includes(viewType)) {
       this.internalSetState({ type, viewType });
     } else {
       console.warn(`${viewType} not in available views`);
@@ -210,7 +210,7 @@ export class DataBrowser extends React.Component {
       sortDirection: '',
       sortField: '',
     },
-    checked: this.props.checked,
+    checked: [],
     //
     switchViewType: this.switchViewType,
     switchColumns: this.switchColumns,
