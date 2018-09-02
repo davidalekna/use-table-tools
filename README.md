@@ -1,7 +1,7 @@
 <h1 align="center">
   DataBrowser 🗄 (beta)
 </h1>
-<p align="center" style="font-size: 1.2rem;">Primitive to build simple, flexible, enhanced data views like table or grid React components</p>
+<p align="center" style="font-size: 1.2rem;">Primitive to build simple, flexible, enhanced flexbox tables or grid React components</p>
 
 <hr />
 
@@ -14,11 +14,11 @@
 
 ## The problem
 
-Its quite time consuming to build your own table functionality when you actually dont want to use a built in styled table component. 
+Its time consuming to build your own table functionality when you want something more specific than styled table components that already exist.
 
 ## This solution
 
-DataBrowser component will provide common functionalities like checkbox, sorting, filtering, visible / offset columns and much more for your individual table components... 
+DataBrowser component will provide common functionalities like checkbox, client side sorting, filtering, visible / offset columns and much more for your individual table components... 
 
 > NOTE: The original use case of this component is to build flexbox table list, however the API
 > is powerful and flexible enough to build things like grids as well.
@@ -70,13 +70,13 @@ npm install --save react-data-browser
 
 > This package also depends on `react`, `hoist-non-react-statics` and `prop-types`. Please make sure you have those installed as well.
 
-<!-- ## Preview
+## Preview
 
-![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif) -->
+![Alt Text](https://ibb.co/m5oz5K)
 
 ## Usage
 
-> NOTE: This example is using styled-components to make it easier to visualize the usage.
+> NOTE: DataBrowser component will not provide any styles, only the functionality. Styles used in the examples are only for better visualization for what could be achieved using this component.
 
 > [Try it out in the browser](https://codesandbox.io/s/github/davidalekna/data-browser-examples)
 
@@ -105,9 +105,25 @@ render(
 )
 ```
 
-`<DataBrowser />` and `withDataBrowser()` are the only components exposed by this package. It doesn't render anything itself, it just calls the render function and renders that
-["Use a render prop!"][use-a-render-prop]!
+`<DataBrowser />` is the only component exposed by this package. It doesn't render anything itself, it just calls the render function and renders that ["Use a render prop!"][use-a-render-prop]!
 `<DataBrowser>{props => <div>/* your JSX here! */</div>}</DataBrowser>`.
+
+```jsx
+import React from 'react'
+import {withDataBrowser} from 'react-data-browser'
+
+const YourComponent = withDataBrowser(({dataBrowser}) => <div />)
+```
+
+`withDataBrowser()` is a higher order component to wrap your child components, it will provide a dataBrowser prop.
+
+```jsx
+import {getObjectPropertyByString} from 'react-data-browser'
+
+getObjectPropertyByString(object, 'object.property.that.you.want.to.access')
+```
+
+`getObjectPropertyByString()` is a function that helps to access nested properties on an object by string.
 
 ## Basic Props
 
