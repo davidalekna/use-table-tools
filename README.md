@@ -358,3 +358,4 @@ MIT
 [gzip-badge]: http://img.badgesize.io/https://unpkg.com/downshift/dist/downshift.umd.min.js?compression=gzip&label=gzip%20size&style=flat-square
 [size-badge]: http://img.badgesize.io/https://unpkg.com/downshift/dist/downshift.umd.min.js?label=size&style=flat-square
 [unpkg-dist]: https://unpkg.com/react-data-browser/dist/
+[use-a-render-prop]: https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce
