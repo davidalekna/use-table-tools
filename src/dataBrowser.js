@@ -57,6 +57,7 @@ export class DataBrowser extends React.Component {
     switchView: '__switch_view__',
     sortData: '__sort_data__',
     onItemClick: '__on_item_select__',
+    replaceColumnFlex: '__replace_column_flex__',
   };
   static Consumer = DataBrowserContext.Consumer;
   switchColumns = ({
@@ -72,6 +73,27 @@ export class DataBrowser extends React.Component {
     );
     visibleColumns.splice(index, 0, replacement);
     this.internalSetState({ type, visibleColumns });
+  };
+  replaceColumnFlex = ({
+    type = DataBrowser.stateChangeTypes.replaceColumnFlex,
+    columnFlex,
+  }) => {
+    this.setState(state => {
+      const visibleSortFields = state.visibleColumns
+        .map(({ sortField }) => sortField)
+        .reverse();
+      return {
+        columnFlex,
+        visibleColumns: this.props.columns
+          .sort((a, b) => {
+            return (
+              visibleSortFields.indexOf(b.sortField) -
+              visibleSortFields.indexOf(a.sortField)
+            );
+          })
+          .slice(0, columnFlex.length),
+      };
+    });
   };
   offsetColumns = () => {
     const visible = this.getState().visibleColumns.map(
@@ -231,6 +253,7 @@ export class DataBrowser extends React.Component {
     defaultSortMethod: this.defaultSortMethod,
     sortData: this.sortData,
     activeSort: this.activeSort,
+    replaceColumnFlex: this.replaceColumnFlex,
   };
   state = this.initialState;
   isControlledProp(key) {
