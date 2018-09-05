@@ -48,7 +48,7 @@ export class DataBrowser extends React.Component {
     stateReducer: (state, changes) => changes,
     onStateChange: () => {},
     viewsAvailable: ['LIST_VIEW', 'GRID_VIEW'],
-    columnFlex: ['0 0 25%', '1 1 35%', '0 0 20%', '0 0 20%'],
+    initialColumnFlex: ['0 0 25%', '1 1 35%', '0 0 20%', '0 0 20%'],
     totalItems: 0,
   };
   static stateChangeTypes = {
@@ -234,14 +234,14 @@ export class DataBrowser extends React.Component {
     return isActive && isCurrentSortDir;
   };
   _columnFlexInitializer = () => {
-    return arrayHasArrays(this.props.columnFlex)
-      ? this.props.columnFlex[0]
-      : this.props.columnFlex;
+    return arrayHasArrays(this.props.initialColumnFlex)
+      ? this.props.initialColumnFlex[0]
+      : this.props.initialColumnFlex;
   };
   initialState = {
     columnFlex: this._columnFlexInitializer(),
-    availableColumnFlex: arrayHasArrays(this.props.columnFlex)
-      ? this.props.columnFlex
+    availableColumnFlex: arrayHasArrays(this.props.initialColumnFlex)
+      ? this.props.initialColumnFlex
       : null,
     columns: this.props.columns,
     visibleColumns: this.props.columns.slice(

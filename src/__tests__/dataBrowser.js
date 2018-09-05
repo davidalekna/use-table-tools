@@ -8,7 +8,7 @@ import mockData from '../__mocks__/data';
 
 test('should return visibleColumns in shape of columnFlex', () => {
   const { columnFlex, visibleColumns } = setup({
-    columnFlex: ['0 0 25%', '1 1 55%', '0 0 20%'],
+    initialColumnFlex: ['0 0 25%', '1 1 55%', '0 0 20%'],
   });
   expect(visibleColumns.length).toEqual(columnFlex.length);
 });
@@ -60,7 +60,7 @@ test('replaceColumnFlex should replace columns with chosen set of cols', () => {
     ['0 0 20%', '1 1 40%', '0 0 20%', '0 0 20%'],
   ];
   const { columnFlex, availableColumnFlex, replaceColumnFlex } = setup({
-    columnFlex: initialColumnFlex,
+    initialColumnFlex: initialColumnFlex,
     onStateChange: handleStateChange,
   });
 
