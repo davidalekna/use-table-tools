@@ -80,11 +80,12 @@ export class DataBrowser extends React.Component {
     type = DataBrowser.stateChangeTypes.replaceColumnFlex,
     columnFlex,
   }) => {
-    this.setState(state => {
+    this.internalSetState(state => {
       const visibleSortFields = state.visibleColumns
         .map(({ sortField }) => sortField)
         .reverse();
       return {
+        type,
         columnFlex,
         visibleColumns: this.props.columns
           .sort((a, b) => {

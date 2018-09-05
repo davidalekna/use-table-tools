@@ -22,7 +22,7 @@ test('switchViewType should switch to selected available view', () => {
   const viewType = { viewType: 'GRID_VIEW' };
   switchViewType(viewType);
   const changes = {
-    type: '__switch_view__',
+    type: DataBrowser.stateChangeTypes.switchView,
     ...viewType,
   };
   expect(handleStateChange).toHaveBeenCalledTimes(1);
@@ -37,7 +37,7 @@ test('switchColumns should switch column accordingly', () => {
   const { switchColumns } = setup({ onStateChange: handleStateChange });
   switchColumns({ from: 'name', to: 'body' });
   const changes = {
-    type: '__switch_columns__',
+    type: DataBrowser.stateChangeTypes.switchColumns,
     visibleColumns: [
       { label: 'item id', sortField: 'id', isLocked: true },
       { label: 'post id', sortField: 'postId', visible: true },
@@ -49,6 +49,42 @@ test('switchColumns should switch column accordingly', () => {
   expect(handleStateChange).toHaveBeenLastCalledWith(
     changes,
     expect.objectContaining({ visibleColumns: changes.visibleColumns }),
+  );
+});
+
+test('replaceColumnFlex should replace columns with chosen set of cols', () => {
+  const handleStateChange = jest.fn();
+  const initialColumnFlex = [
+    ['0 0 25%', '1 1 75%'],
+    ['0 0 25%', '1 1 55%', '0 0 20%'],
+    ['0 0 20%', '1 1 40%', '0 0 20%', '0 0 20%'],
+  ];
+  const { columnFlex, availableColumnFlex, replaceColumnFlex } = setup({
+    columnFlex: initialColumnFlex,
+    onStateChange: handleStateChange,
+  });
+
+  const selectedColFlex = availableColumnFlex[1];
+  replaceColumnFlex({ columnFlex: selectedColFlex });
+
+  const changes = {
+    columnFlex: selectedColFlex,
+    type: DataBrowser.stateChangeTypes.replaceColumnFlex,
+    visibleColumns: [
+      { label: 'item id', sortField: 'id', isLocked: true },
+      { label: 'post id', sortField: 'postId', visible: true },
+      { label: 'name', sortField: 'name', visible: true },
+    ],
+  };
+
+  expect(columnFlex.toString()).toEqual(initialColumnFlex[0].toString());
+  expect(availableColumnFlex.toString()).toEqual(initialColumnFlex.toString());
+  expect(handleStateChange).toHaveBeenCalledTimes(1);
+  expect(handleStateChange).toHaveBeenLastCalledWith(
+    changes,
+    expect.objectContaining({
+      visibleColumns: changes.visibleColumns,
+    }),
   );
 });
 
@@ -70,11 +106,35 @@ test('checkboxState should check if checbox on or off', () => {
   expect(result_6).toBeFalsy();
 });
 
-// test('offsetColumns should get all columns except isLocked property with offset prop', () => {
-//   const { offsetColumns } = setup();
-//   const columns = offsetColumns();
-//   console.log(columns);
-// });
+test('offsetColumns should get all columns except with isLocked prop', () => {
+  const { offsetColumns } = setup();
+  const columns = offsetColumns();
+  const result = columns
+    .map(item => (item.isLocked && 'exist') || false)
+    .includes('exist');
+  expect(result).toEqual(false);
+});
+
+test('offsetColumns objects should contain prop visible', () => {
+  const { offsetColumns } = setup();
+  const columns = offsetColumns();
+  const result = columns
+    .map(item => Object.keys(item).includes('visible'))
+    .includes(false);
+  expect(result).toEqual(false);
+});
+
+test('onSelection', () => {});
+test('onDeselectAll', () => {});
+test('onSelectAll', () => {});
+test('checkboxToggle', () => {});
+test('checkboxState', () => {});
+test('defaultSortMethod', () => {});
+test('changeSortDirection', () => {});
+test('toggleSortDirection', () => {});
+test('sortData', () => {});
+test('activeSort', () => {});
+test('_columnFlexInitializer', () => {});
 
 function setup({
   render: renderFn = () => <div />,

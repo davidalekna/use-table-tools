@@ -1,4 +1,4 @@
-import { getObjectPropertyByString } from '../utils';
+import { getObjectPropertyByString, arrayHasArrays } from '../utils';
 
 test('should get object property value by string', () => {
   const items = {
@@ -13,4 +13,17 @@ test('should get object property value by string', () => {
   };
   const result = getObjectPropertyByString(items, 'edges.node.name');
   expect(result).toEqual(items.edges.node.name);
+});
+
+test('should detect if array is multidimensional', () => {
+  const test1 = ['hello world', 1, undefined, null, true, false, []];
+  const test2 = [[], [], []];
+  const test3 = ['this', 'one', 'will', 'have', 'no', 'arrays'];
+
+  const result1 = arrayHasArrays(test1);
+  expect(result1).toEqual(true);
+  const result2 = arrayHasArrays(test2);
+  expect(result2).toEqual(true);
+  const result3 = arrayHasArrays(test3);
+  expect(result3).toEqual(false);
 });
