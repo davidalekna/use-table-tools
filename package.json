@@ -1,6 +1,6 @@
 {
   "name": "react-data-browser",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "DataBrowser is a lightweight, fast and extendable render props component",
   "main": "dist/index.js",
   "repository": {
