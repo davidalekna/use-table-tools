@@ -105,9 +105,9 @@ export class DataBrowser extends React.Component {
       .columns.filter(c => !c.isLocked)
       .map(column => {
         if (visible.includes(column.sortField)) {
-          return { ...column, visible: true };
+          return Object.assign(column, { visible: true });
         } else {
-          return column;
+          return Object.assign(column, { visible: false });
         }
       });
   };

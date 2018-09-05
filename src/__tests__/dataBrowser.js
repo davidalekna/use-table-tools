@@ -40,9 +40,9 @@ test('switchColumns should switch column accordingly', () => {
     type: '__switch_columns__',
     visibleColumns: [
       { label: 'item id', sortField: 'id', isLocked: true },
-      { label: 'post id', sortField: 'postId' },
-      { label: 'body', sortField: 'body' },
-      { label: 'email', sortField: 'email' },
+      { label: 'post id', sortField: 'postId', visible: true },
+      { label: 'body', sortField: 'body', visible: false },
+      { label: 'email', sortField: 'email', visible: true },
     ],
   };
   expect(handleStateChange).toHaveBeenCalledTimes(1);
