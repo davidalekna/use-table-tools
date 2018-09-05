@@ -145,7 +145,7 @@ Provide columns array that you wish to be visible in your component.
 
 requires total items length (number) for the checkboxes to work properly
 
-### columnFlex
+### initialColumnFlex
 
 > `Array<>` | optional
 
