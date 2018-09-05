@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import hoistNonReactStatics from 'hoist-non-react-statics';
-import { getObjectPropertyByString } from './utils';
+import { getObjectPropertyByString, arrayHasArrays } from './utils';
 
 const DataBrowserContext = React.createContext({
   columnFlex: [],
+  availableColumnFlex: null,
   columns: [],
   visibleColumns: [],
   viewType: '',
@@ -20,6 +21,7 @@ const DataBrowserContext = React.createContext({
   changeSortDirection: () => {},
   defaultSortMethod: () => {},
   sortData: () => {},
+  replaceColumnFlex: () => {},
 });
 
 export class DataBrowser extends React.Component {
@@ -230,10 +232,21 @@ export class DataBrowser extends React.Component {
     const isCurrentSortDir = currentSort.sortDirection === sortDir;
     return isActive && isCurrentSortDir;
   };
+  _columnFlexInitializer = () => {
+    return arrayHasArrays(this.props.columnFlex)
+      ? this.props.columnFlex[0]
+      : this.props.columnFlex;
+  };
   initialState = {
-    columnFlex: this.props.columnFlex,
+    columnFlex: this._columnFlexInitializer(),
+    availableColumnFlex: arrayHasArrays(this.props.columnFlex)
+      ? this.props.columnFlex
+      : null,
     columns: this.props.columns,
-    visibleColumns: this.props.columns.slice(0, this.props.columnFlex.length),
+    visibleColumns: this.props.columns.slice(
+      0,
+      this._columnFlexInitializer().length,
+    ),
     viewType: 'LIST_VIEW',
     viewsAvailable: this.props.viewsAvailable,
     selectAllCheckboxState: false,
