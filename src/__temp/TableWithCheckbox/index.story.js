@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import ShowDocs from '../../utils/ShowDocs';
+import ShowDocs from '../../__utils__/ShowDocs';
 import axios from 'axios';
 import DataBrowser, { getObjectPropertyByString } from '../../index';
 import { action } from '@storybook/addon-actions';

@@ -20,9 +20,14 @@
   "exclude": [
     "node_modules",
     "lib",
+    "**/__components__/**/*",
+    "**/__mocks__/**/*",
     "**/__tests__/**/*",
     "**/__stories__/**/*",
+    "**/__utils__/**/*",
     "*.test.ts",
-    "*.test.tsx"
+    "*.test.tsx",
+    "*.spec.ts",
+    "*.spec.tsx"
   ]
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { sort } from 'ramda';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import ShowDocs from '../../utils/ShowDocs';
+import ShowDocs from '../../__utils__/ShowDocs';
 import { getObjectPropertyByString } from '../../index';
 import { View } from '../../__components__/globals';
 import {
