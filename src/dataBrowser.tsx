@@ -29,6 +29,10 @@ export const DataBrowserContext = React.createContext<State>({
   toggleSort: () => {},
 });
 
+const VIEW_LIST = 'VIEW_LIST';
+const VIEW_GRID = 'VIEW_GRID';
+const VIEW_LOADING = 'VIEW_LOADING';
+
 export class DataBrowser extends React.Component<Props, State> {
   static propTypes = {
     children: PropTypes.func.isRequired,
@@ -45,7 +49,7 @@ export class DataBrowser extends React.Component<Props, State> {
       sortField: PropTypes.string,
     }),
     stateReducer: PropTypes.func,
-    viewType: PropTypes.string,
+    initialViewType: PropTypes.string,
     viewsAvailable: PropTypes.array,
     totalItems: PropTypes.number,
   };
@@ -63,7 +67,8 @@ export class DataBrowser extends React.Component<Props, State> {
     onToggleSort: () => {},
     onToggleSortDirection: () => {},
     initialSort: { dir: '', sortField: '' },
-    viewsAvailable: ['LIST_VIEW', 'GRID_VIEW'],
+    viewsAvailable: [VIEW_LIST, VIEW_GRID, VIEW_LOADING],
+    initialViewType: VIEW_LIST,
     initialColumnFlex: ['0 0 25%', '1 1 35%', '0 0 20%', '0 0 20%'],
     initialChecked: [],
     totalItems: 0,
@@ -388,7 +393,7 @@ export class DataBrowser extends React.Component<Props, State> {
       0,
       this._columnFlexInitializer().length,
     ),
-    viewType: 'LIST_VIEW',
+    viewType: this.props.initialViewType,
     selectAllCheckboxState: 'none',
     currentSort: this.props.initialSort,
     checkedItems: this.props.initialChecked,

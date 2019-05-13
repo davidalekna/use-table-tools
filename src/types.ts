@@ -22,6 +22,7 @@ export type Props = {
   initialChecked: string[];
   totalItems: number;
   columns: Column[];
+  initialViewType: string;
 };
 
 export type CheckboxAllState = 'all' | 'none' | 'some' | string;
