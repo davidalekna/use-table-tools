@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import * as hoistNonReactStatics from 'hoist-non-react-statics';
 import { getObjectPropertyByString, arrayHasArrays } from './utils';
-import { State, Props, CheckboxAllState } from './types';
+import { State, Props } from './types';
 
 export const DataBrowserContext = React.createContext<State>({
   columnFlex: [],
@@ -49,9 +49,10 @@ export class DataBrowser extends React.Component<Props, State> {
       sortField: PropTypes.string,
     }),
     stateReducer: PropTypes.func,
-    initialViewType: PropTypes.string,
-    viewsAvailable: PropTypes.array,
     totalItems: PropTypes.number,
+    // tabel body views
+    initialView: PropTypes.string,
+    views: PropTypes.array,
   };
   static defaultProps = {
     stateReducer: (state: State, changes: unknown) => changes,
@@ -67,11 +68,12 @@ export class DataBrowser extends React.Component<Props, State> {
     onToggleSort: () => {},
     onToggleSortDirection: () => {},
     initialSort: { dir: '', sortField: '' },
-    viewsAvailable: [VIEW_LIST, VIEW_GRID, VIEW_LOADING],
-    initialViewType: VIEW_LIST,
     initialColumnFlex: ['0 0 25%', '1 1 35%', '0 0 20%', '0 0 20%'],
     initialChecked: [],
     totalItems: 0,
+    // tabel body views
+    views: [VIEW_LIST, VIEW_GRID, VIEW_LOADING],
+    initialView: VIEW_LIST,
   };
   static stateChangeTypes = {
     deselectAll: '__deselect_all__',
@@ -266,8 +268,8 @@ export class DataBrowser extends React.Component<Props, State> {
   switchViewType = ({
     type = DataBrowser.stateChangeTypes.switchView,
     viewType = '',
-  }: { type?: string; viewType?: string } = {}) => {
-    if (this.props.viewsAvailable.includes(viewType)) {
+  } = {}) => {
+    if (this.props.views.includes(viewType)) {
       this.internalSetState({ type, viewType }, () =>
         this.props.onSwitchViewType(this.getState().viewType),
       );
@@ -393,13 +395,14 @@ export class DataBrowser extends React.Component<Props, State> {
       0,
       this._columnFlexInitializer().length,
     ),
-    viewType: this.props.initialViewType,
     selectAllCheckboxState: 'none',
     currentSort: this.props.initialSort,
     checkedItems: this.props.initialChecked,
+    // view state
+    viewType: this.props.initialView,
     // fns
     getColumns: () => this.props.columns,
-    getViews: () => this.props.viewsAvailable,
+    getViews: () => this.props.views,
     switchViewType: this.switchViewType,
     switchColumns: this.switchColumns,
     checkboxState: this.checkboxState,
@@ -417,7 +420,7 @@ export class DataBrowser extends React.Component<Props, State> {
   isControlledProp(key: string) {
     return this.props[key] !== undefined;
   }
-  getState(stateToMerge = this.state): State {
+  getState(stateToMerge: State = this.state): any {
     return Object.keys(stateToMerge).reduce((state, key) => {
       state[key] = this.isControlledProp(key)
         ? this.props[key]
@@ -428,7 +431,7 @@ export class DataBrowser extends React.Component<Props, State> {
   internalSetState = (changes, callback = () => {}) => {
     let allChanges;
     this.setState(
-      (currentState: any) => {
+      currentState => {
         const combinedState = this.getState(currentState);
         return [changes]
           .map(c => (typeof c === 'function' ? c(currentState) : c))
@@ -483,6 +486,6 @@ export function withDataBrowser(Component) {
 }
 
 export function useDataBrowser() {
-  const browserUtils = React.useContext(DataBrowserContext);
-  return browserUtils;
+  const dataBrowserUtils = React.useContext(DataBrowserContext);
+  return dataBrowserUtils;
 }

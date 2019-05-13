@@ -33,6 +33,7 @@ function Demo({
       onSelectAll={onSelectAll}
       onDeselectAll={onDeselectAll}
       onSortData={onSortData}
+      viewType="VIEW_LOADING"
     >
       {(
         data,
@@ -45,8 +46,13 @@ function Demo({
           checkboxToggle,
           selectAllCheckboxState,
           onSelection,
+          viewType,
+          getViews,
         },
       ) => {
+        console.log(viewType);
+        console.log(getViews());
+
         return (
           <View>
             {/* HEAD */}
