@@ -8,7 +8,7 @@ export const DataBrowserContext = React.createContext<State>({
   columnFlex: [],
   availableColumnFlex: null,
   visibleColumns: [],
-  viewType: '',
+  // viewType: '',
   selectAllCheckboxState: 'none',
   currentSort: {},
   checkedItems: [],
@@ -29,9 +29,9 @@ export const DataBrowserContext = React.createContext<State>({
   toggleSort: () => {},
 });
 
-const VIEW_LIST = 'VIEW_LIST';
-const VIEW_GRID = 'VIEW_GRID';
-const VIEW_LOADING = 'VIEW_LOADING';
+const LIST = 'LIST';
+const GRID = 'GRID';
+const LOADING = 'LOADING';
 
 export class DataBrowser extends React.Component<Props, State> {
   static propTypes = {
@@ -44,17 +44,21 @@ export class DataBrowser extends React.Component<Props, State> {
         isLocked: PropTypes.bool,
       }),
     ).isRequired,
+    stateReducer: PropTypes.func,
+    // sorting
     initialSort: PropTypes.shape({
       dir: PropTypes.string,
       sortField: PropTypes.string,
     }),
-    stateReducer: PropTypes.func,
+    // checkboxes
     totalItems: PropTypes.number,
-    // tabel body views
+    // views
     initialView: PropTypes.string,
+    viewType: PropTypes.string,
     views: PropTypes.array,
   };
   static defaultProps = {
+    // on action
     stateReducer: (state: State, changes: unknown) => changes,
     onStateChange: () => {},
     onSwitchColumns: () => {},
@@ -67,13 +71,16 @@ export class DataBrowser extends React.Component<Props, State> {
     onCheckboxToggle: () => {},
     onToggleSort: () => {},
     onToggleSortDirection: () => {},
+    // sorting
     initialSort: { dir: '', sortField: '' },
+    // visible columns
     initialColumnFlex: ['0 0 25%', '1 1 35%', '0 0 20%', '0 0 20%'],
+    // checkboxes
     initialChecked: [],
     totalItems: 0,
-    // tabel body views
-    views: [VIEW_LIST, VIEW_GRID, VIEW_LOADING],
-    initialView: VIEW_LIST,
+    // views
+    views: [LIST, GRID, LOADING],
+    initialView: LIST,
   };
   static stateChangeTypes = {
     deselectAll: '__deselect_all__',
@@ -271,7 +278,7 @@ export class DataBrowser extends React.Component<Props, State> {
   } = {}) => {
     if (this.props.views.includes(viewType)) {
       this.internalSetState({ type, viewType }, () =>
-        this.props.onSwitchViewType(this.getState().viewType),
+        this.props.onSwitchViewType(viewType),
       );
     } else {
       console.warn(`${viewType} not in available views`);
@@ -398,7 +405,6 @@ export class DataBrowser extends React.Component<Props, State> {
     selectAllCheckboxState: 'none',
     currentSort: this.props.initialSort,
     checkedItems: this.props.initialChecked,
-    // view state
     viewType: this.props.initialView,
     // fns
     getColumns: () => this.props.columns,

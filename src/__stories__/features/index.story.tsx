@@ -17,6 +17,49 @@ import fieldReducer from './fieldReducer';
 import { Checkbox } from '../../__components__/formElements';
 import { HeadCell } from '../../__components__/table/components/HeadCell';
 
+const Body = ({
+  defaultSortMethod,
+  data,
+  fixedColWidth,
+  checkboxState,
+  checkboxToggle,
+  visibleColumns,
+  columnFlex,
+  onTableRowClick,
+}: any) => {
+  return (
+    <TableBody>
+      {sort(defaultSortMethod, data).map((row, key) => (
+        <Row key={key} selectable>
+          <RowItem style={{ width: fixedColWidth }} flex="0 0 auto">
+            <Checkbox
+              id={row.id}
+              checked={checkboxState(row.id)}
+              onChange={() => {
+                checkboxToggle({ rowId: row.id });
+              }}
+            />
+          </RowItem>
+          {visibleColumns.map(({ sortField }, index) => (
+            <RowItem
+              key={sortField}
+              flex={columnFlex[index]}
+              checked={checkboxState(row.id)}
+              onClick={() => onTableRowClick(`row id ${row.id}`)}
+            >
+              {fieldReducer(
+                getObjectPropertyByString(row, sortField),
+                sortField,
+                row,
+              )}
+            </RowItem>
+          ))}
+        </Row>
+      ))}
+    </TableBody>
+  );
+};
+
 function Demo({
   onTableRowClick,
   onToggleSort,
@@ -26,6 +69,7 @@ function Demo({
   onSortData,
 }) {
   const fixedColWidth = 40;
+
   return (
     <BaseTable
       onToggleSort={onToggleSort}
@@ -33,25 +77,14 @@ function Demo({
       onSelectAll={onSelectAll}
       onDeselectAll={onDeselectAll}
       onSortData={onSortData}
-      viewType="VIEW_LOADING"
     >
-      {(
-        data,
-        {
+      {(viewSwitch, data, loading, dbProps) => {
+        const {
           columnFlex,
           visibleColumns,
-          defaultSortMethod,
-          toggleSort,
-          checkboxState,
-          checkboxToggle,
           selectAllCheckboxState,
           onSelection,
-          viewType,
-          getViews,
-        },
-      ) => {
-        console.log(viewType);
-        console.log(getViews());
+        } = dbProps;
 
         return (
           <View>
@@ -68,7 +101,7 @@ function Demo({
                 render={() => (
                   <Checkbox
                     selectAllCheckboxState={selectAllCheckboxState}
-                    disabled={false}
+                    disabled={loading}
                     onChange={() => {
                       onSelection({
                         items: data.map(row => row.id),
@@ -88,38 +121,9 @@ function Demo({
                 />
               ))}
             </TableHead>
-            {/* BODY */}
-            <TableBody>
-              {sort(defaultSortMethod, data).map((row, key) => (
-                <Row key={key} selectable>
-                  <RowItem style={{ width: fixedColWidth }} flex="0 0 auto">
-                    <Checkbox
-                      id={row.id}
-                      checked={checkboxState(row.id)}
-                      onChange={() => {
-                        checkboxToggle({ rowId: row.id });
-                      }}
-                    />
-                  </RowItem>
-                  {visibleColumns.map(
-                    ({ label, sortField, isLocked }, index) => (
-                      <RowItem
-                        key={sortField}
-                        flex={columnFlex[index]}
-                        checked={checkboxState(row.id)}
-                        onClick={() => onTableRowClick(`row id ${row.id}`)}
-                      >
-                        {fieldReducer(
-                          getObjectPropertyByString(row, sortField),
-                          sortField,
-                          row,
-                        )}
-                      </RowItem>
-                    ),
-                  )}
-                </Row>
-              ))}
-            </TableBody>
+            {viewSwitch({
+              list: Body,
+            })}
           </View>
         );
       }}

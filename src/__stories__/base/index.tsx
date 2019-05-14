@@ -25,16 +25,55 @@ const columns = [
   { label: 'volume', sortField: 'volume' },
 ];
 
+const LIST = 'LIST';
+const GRID = 'GRID';
+const LOADING = 'LOADING';
+
+const views = [LIST, GRID, LOADING];
+
+const viewSwitch = ({ viewType, data, props }) => ({
+  loading: Loading = () => <div children="loading" />,
+  list: List = () => <div children="list" />,
+  ...rest
+}) => {
+  switch (viewType) {
+    case 'LOADING':
+      return 'LOADING COMPONENT WILL REPLACE THIS TEXT';
+    case 'LIST':
+      return <List data={data} {...props} {...rest} />;
+    case 'GRID':
+      return <div children="grid will be here" />;
+    default:
+      return null;
+  }
+};
+
 export function BaseTable({ children, onToggleSort, ...rest }) {
-  const { data } = useData();
+  const { data, loading } = useData();
+  const [viewType, switchViewType] = React.useState(LOADING);
+
+  React.useEffect(() => {
+    switchViewType(loading ? LOADING : LIST);
+  }, [loading]);
+
   return (
     <DataBrowser
       columns={columns}
       totalItems={data.length}
+      viewType={viewType}
+      onSwitchViewType={switchViewType}
       // on trigger log
       onToggleSort={field => onToggleSort(`${field.sortField}-${field.dir}`)}
-      children={props => children(data, props)}
       {...rest}
-    />
+    >
+      {props => {
+        return children(
+          viewSwitch({ viewType, data, props }),
+          data,
+          loading,
+          props,
+        );
+      }}
+    </DataBrowser>
   );
 }

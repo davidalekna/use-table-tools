@@ -31,7 +31,7 @@ export type State = {
   columnFlex: string[] | string[][] | any;
   availableColumnFlex: null | string[];
   visibleColumns: Column[];
-  viewType: string;
+  viewType?: string;
   selectAllCheckboxState: CheckboxAllState;
   currentSort: any;
   checkedItems: string[];
