@@ -16,11 +16,11 @@ test('switchViewType should switch to selected available view', () => {
   const { switchViewType } = renderDataBrowser({
     props: {
       onStateChange: handleStateChange,
-      viewsAvailable: ['LIST_VIEW', 'GRID_VIEW'],
+      viewsAvailable: ['LIST', 'GRID', 'LOADING'],
     },
   });
   // Includes view type
-  const viewType = { viewType: 'GRID_VIEW' };
+  const viewType = { viewType: 'GRID' };
   switchViewType(viewType);
   const changes = {
     type: DataBrowser.stateChangeTypes.switchView,
