@@ -1,3 +1,5 @@
+## NOTE: please note the package has migrated to a monorepo [here](https://github.com/davidalekna/react-components/tree/master/packages/alekna-data-browser) and is now called `@alekna/react-data-browser`
+
 <h1 align="center">
   DataBrowser 🗄 
 </h1>
