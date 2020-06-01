@@ -39,7 +39,8 @@
     "docz:dev": "docz dev",
     "docz:build": "docz build",
     "docz:serve": "docz build && docz serve",
-    "report-coverage": "codecov"
+    "report-coverage": "codecov",
+		"format": "pretty-quick --pattern \"./packages/**/*.*(js|ts|tsx)\""
   },
   "peerDependencies": {
     "react": ">=16.8.0"
@@ -53,7 +54,10 @@
     "babel-jest": "^26.0.1",
     "babel-loader": "^8.1.0",
     "codecov": "^3.7.0",
+    "husky": "^4.2.5",
     "jest": "^26.0.1",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-testing-library": "^8.0.1",
@@ -62,5 +66,10 @@
     "ts-node": "^8.10.2",
     "tslib": "^2.0.0",
     "typescript": "^3.9.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn format"
+    }
   }
 }
