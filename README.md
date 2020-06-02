@@ -57,9 +57,21 @@ npm install use-table-tools
 
 ### Parameters
 
-> initialState
+- `layout?: { [key: number]: string[] } | string[]`: layout of the table. Can be a string of flex props per column `['0 0 25%', '1 1 35%', '0 0 20%', '0 0 20%']` or an object with flex props per breakpoint where the key is a breakpoint and the value is a flex props per column.
 
-> reducer
+```js
+const layout = {
+  280: ['0 0 100%'],
+  348: ['0 0 50%', '0 0 50%'],
+  768: ['0 0 35%', '1 1 35%', '0 0 30%'],
+  1280: ['0 0 25%', '1 1 35%', '0 0 20%', '0 0 20%'],
+};
+```
+
+- `columns: ColumnProps[]`: column properties
+- `totalItems: number`: total items per page, required for the checkboxes to work
+- `clientSortBy?: SortProps`: initial client sort for the table
+- `checkedItems?: string[]`: initialize checked items
 
 ### Return Values
 
