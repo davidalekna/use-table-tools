@@ -64,8 +64,11 @@ typings/
 # next.js build output
 .next
 
+tsconfig.tsbuildinfo
+
 # build output
 lib/
+dist/
 esm
 
 .DS_Store

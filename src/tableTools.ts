@@ -1,10 +1,6 @@
 import { useReducer, useLayoutEffect, useCallback, ChangeEvent } from 'react';
 import { useWindowSize } from './use-window-size';
-import {
-  getObjectValueByString,
-  getOffsetColumns,
-  callAllEventHandlers,
-} from './utils';
+import { getObjectValueByString, getOffsetColumns } from './utils';
 
 // https://kentcdodds.com/blog/the-state-reducer-pattern-with-react-hooks
 
@@ -113,7 +109,7 @@ export type Action = { type: string; payload?: any };
 export type ReducerProps<S, A> = (prevState: S, action: A) => S;
 export const tableToolsReducer: ReducerProps<TableToolsState, Action> = (
   state,
-  action
+  action,
 ) => {
   switch (action.type) {
     case actionTypes.updateState: {
@@ -129,7 +125,7 @@ export const tableToolsReducer: ReducerProps<TableToolsState, Action> = (
       const visibleColumns = columns.filter((col) => col.sortKey !== from);
       const replacement = getOffsetColumns(
         state.visibleColumns,
-        state.columns
+        state.columns,
       ).find(({ sortKey }) => sortKey === to);
       if (replacement) {
         visibleColumns.splice(index, 0, replacement);
@@ -235,7 +231,7 @@ export const tableToolsReducer: ReducerProps<TableToolsState, Action> = (
           checked = checkedItems.concat(rangeIds);
         } else {
           checked = checkedItems.filter((id) =>
-            rangeIds.includes(id) ? false : true
+            rangeIds.includes(id) ? false : true,
           );
         }
 
@@ -307,7 +303,7 @@ export const useTableTools = (
     columns = [],
     checkedItems = [],
   }: TableToolsProps,
-  reducer = tableToolsReducer
+  reducer = tableToolsReducer,
 ): TableToolsReturnProps => {
   const checkboxRefs = new Set();
   const { width } = useWindowSize(Array.isArray(layout) ? 'no' : 'yes');
@@ -359,10 +355,10 @@ export const useTableTools = (
       return getOffsetColumns(
         state.visibleColumns,
         state.columns,
-        includeVisible
+        includeVisible,
       );
     },
-    [state.visibleColumns, state.columns]
+    [state.visibleColumns, state.columns],
   );
 
   // CHECKBOX HELPERS

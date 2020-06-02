@@ -4,9 +4,9 @@
   "description": "react hook for building powerful table components",
   "author": "David Alekna <alekna@live.co.uk>",
   "license": "MIT",
-  "main": "./lib/index.js",
-  "module": "./lib/esm.js",
-  "typings": "./lib/index.d.ts",
+  "main": "./lib/index.cjs.js",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "files": [
     "lib/*"
   ],
@@ -30,17 +30,21 @@
     "react grid"
   ],
   "scripts": {
-    "start": "yarn docz:dev",
+    "prebuild": "npm run clean",
+    "build": "tsc",
+    "postbuild": "npm run bundle",
+    "clean": "rimraf -r dist coverage lib",
+    "bundle": "rollup -c ./config/rollup.config.js",
+    "predeploy": "npm run build",
+    "deploy": "cd dist && npm publish --tag beta",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "build:cjs": "tsc -b",
-    "build:es": "tsc -m esNext --outDir esm",
-    "build": "yarn build:cjs && yarn build:es",
+    "start": "yarn docz:dev",
     "docz:dev": "docz dev",
     "docz:build": "docz build",
     "docz:serve": "docz build && docz serve",
     "report-coverage": "codecov",
-		"format": "pretty-quick --pattern \"./packages/**/*.*(js|ts|tsx)\""
+    "format": "pretty-quick --pattern \"./packages/**/*.*(js|ts|tsx)\""
   },
   "peerDependencies": {
     "react": ">=16.8.0"
@@ -48,6 +52,7 @@
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
+    "@rollup/plugin-node-resolve": "^8.0.0",
     "@types/jest": "^25.2.3",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
@@ -61,15 +66,21 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-testing-library": "^8.0.1",
+    "rollup": "^2.12.0",
     "ts-jest": "^26.1.0",
     "ts-loader": "^7.0.5",
     "ts-node": "^8.10.2",
-    "tslib": "^2.0.0",
     "typescript": "^3.9.3"
   },
   "husky": {
     "hooks": {
       "pre-commit": "yarn format"
     }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
   }
 }
