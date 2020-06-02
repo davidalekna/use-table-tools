@@ -88,7 +88,7 @@ export interface TableToolsReturnProps extends TableToolsState {
   /** checks the state of the current active sort by key */
   activeSortKey: (key: string) => boolean;
   /** spread checkbox props on the checkbox input */
-  getCheckboxProps: any;
+  getCheckboxProps: any; // TODO
 }
 
 export const actionTypes = {

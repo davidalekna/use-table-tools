@@ -63,39 +63,23 @@ npm install use-table-tools
 
 ### Return Values
 
-> `switchColumns()`
-
-> `switchCurrentLayout()`
-
-> `onSelection()`
-
-> `deselectAll()`
-
-> `selectAll()`
-
-> `offsetColumns()`
-
-> `checkboxToggle()`
-
-> `checkboxShiftToggle()`
-
-> `checkboxState()`
-
-> `clientSortMethod()`
-
-> `changeSortDirection()`
-
-> `toggleSortDirection()`
-
-> `toggleSortByKey()`
-
-> `sortData()`
-
-> `activeSort()`
-
-> `activeSortKey()`
-
-> `getCheckboxProps()`
+- `switchColumns: (from: string, to: string) => void`: provide colums keys from `sortKey` to `sortKey` and they will get replaced
+- `switchCurrentLayout: (currentLayout: string[]) => void`: will switch current layout to the given one and will update visible and offset columns
+- `offsetColumns: (obj?: { includeVisible: boolean }) => ColumnProps[]`: shows offset columns with the ability to include visible ones as well
+- `onSelection: (items: string[]) => void`: actions on master checkbox selection
+- `deselectAll: () => void`: clears the state of selected item ids
+- `selectAll: (checkedItems: string[]) => void`: selects all items
+- `checkboxToggle: (evt: ChangeEvent<HTMLInputElement>) => void`: toggles checkbox by id
+- `checkboxShiftToggle: (evt: ChangeEvent<HTMLInputElement>) => void`: toggles checkbox by id and selects/deselects a range when shift key is on
+- `checkboxState: (id: string) => boolean`: returns a boolean state for the checkbox by id
+- `clientSortMethod: (a: object, b: object) => number`: method to be used in a sort function, like ramda sort
+- `changeSortDirection: (direction: SortProps['direction']) => void`: change current sort direction by specifying next direction
+- `toggleSortDirection: () => void`: toggle current sort field direction
+- `toggleSortByKey: (fieldKey: string) => void`: toggle sort direction on a field key
+- `sortData: (sortProps: SortProps) => void`: sorts data on provided sortField and direction props
+- `activeSort: (sortProps: SortProps) => boolean`: checks the state of the current active sort by key and direction
+- `activeSortKey: (key: string) => boolean`: checks the state of the current active sort by key
+- `getCheckboxProps: ({...}) => CheckboxProps`: spread checkbox props on the checkbox input
 
 ### Options
 
