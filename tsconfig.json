@@ -1,33 +1,32 @@
 {
+  "version": "3.2.4",
   "compilerOptions": {
-    "target": "es2018",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "jsx": "react",
-    "declaration": true,
-    "pretty": true,
     "rootDir": "src",
-    "sourceMap": false,
-    "strict": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noImplicitReturns": true,
-    "noImplicitAny": false,
-    "noFallthroughCasesInSwitch": true,
+    "baseUrl": "src",
     "outDir": "lib",
-    "lib": ["es2018", "dom", "esnext.array"]
+    "noImplicitAny": true,
+    "strictNullChecks": false,
+    "experimentalDecorators": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "removeComments": true,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "target": "es5",
+    "module": "es2015",
+    "esModuleInterop": true,
+    "lib": ["esnext", "dom"],
+    "jsx": "react"
   },
+  "include": ["src/**/*"],
   "exclude": [
     "node_modules",
     "lib",
-    "**/__components__/**/*",
     "**/__mocks__/**/*",
     "**/__tests__/**/*",
-    "**/__stories__/**/*",
-    "**/__utils__/**/*",
-    "*.test.ts",
-    "*.test.tsx",
-    "*.spec.ts",
-    "*.spec.tsx"
+    "**/*.mdx"
   ]
 }
