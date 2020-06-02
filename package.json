@@ -1,6 +1,6 @@
 {
   "name": "use-table-tools",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "react hook for building powerful table components",
   "author": "David Alekna <alekna@live.co.uk>",
   "license": "MIT",
