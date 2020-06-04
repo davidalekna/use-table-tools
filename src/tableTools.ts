@@ -68,9 +68,15 @@ export interface TableToolsReturnProps extends TableToolsState {
   /** selects all items */
   selectAll: (checkedItems: string[]) => void;
   /** toggles checkbox by id */
-  checkboxToggle: (evt: ChangeEvent<HTMLInputElement>) => void;
+  checkboxToggle: (
+    evt: ChangeEvent<HTMLInputElement>,
+    values?: { id: string | number; value: string | number },
+  ) => void;
   /** toggles checkbox by id and selects/deselects a range when shift key is on */
-  checkboxShiftToggle: (evt: ChangeEvent<HTMLInputElement>) => void;
+  checkboxShiftToggle: (
+    evt: ChangeEvent<HTMLInputElement>,
+    values?: { id: string | number; value: string | number },
+  ) => void;
   /** returns a boolean state for the checkbox by id */
   checkboxState: (id: string) => boolean;
   /** method to be used in a sort function, like ramda sort */
@@ -88,7 +94,7 @@ export interface TableToolsReturnProps extends TableToolsState {
   /** checks the state of the current active sort by key */
   activeSortKey: (key: string) => boolean;
   /** spread checkbox props on the checkbox input */
-  getCheckboxProps: any; // TODO
+  getCheckboxProps: any;
 }
 
 export const actionTypes = {
@@ -387,20 +393,23 @@ export const useTableTools = (
     });
   };
 
-  const checkboxToggle = (evt: any) => {
+  const checkboxToggle = (evt: any, values: any) => {
     send({
       type: actionTypes.checkboxToggle,
-      payload: { id: String(evt.target.id), value: String(evt.target.value) },
+      payload: {
+        id: String(values ? values.id : evt.target.id),
+        value: String(values ? values.value : evt.target.value),
+      },
     });
   };
 
-  const checkboxShiftToggle = (evt: any) => {
+  const checkboxShiftToggle = (evt: any, values: any) => {
     if (evt.shiftKey && state.lastChecked) {
       send({
         type: actionTypes.checkboxShiftToggle,
         payload: {
-          id: String(evt.target.id),
-          value: String(evt.target.value),
+          id: String(values ? values.id : evt.target.id),
+          value: String(values ? values.value : evt.target.value),
           refs: checkboxRefs,
         },
       });
@@ -408,7 +417,10 @@ export const useTableTools = (
     }
     send({
       type: actionTypes.checkboxToggle,
-      payload: { id: String(evt.target.id), value: String(evt.target.value) },
+      payload: {
+        id: String(values ? values.id : evt.target.id),
+        value: String(values ? values.value : evt.target.value),
+      },
     });
   };
 
