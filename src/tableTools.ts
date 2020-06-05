@@ -4,10 +4,6 @@ import { getObjectValueByString, getOffsetColumns } from './utils';
 
 // https://kentcdodds.com/blog/the-state-reducer-pattern-with-react-hooks
 
-// TODO: get all table variations from azure devops table
-// TODO: create pagination helpers
-// TODO: comment all code really well
-
 export type ColumnProps = {
   /** nice name for a sortKey that should show up on the table head */
   title: string;
