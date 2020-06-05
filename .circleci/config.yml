@@ -3,7 +3,7 @@ orbs:
   node: circleci/node@2.1.1
 jobs:
   build-and-test:
-    working_directory: ~/use-table-tools
+    working_directory: ~/table-tools
     docker:
       - image: 'cimg/base:stable'
     steps:
@@ -15,6 +15,7 @@ jobs:
           node-version: latest
       - run: node --version
       - run: yarn install
+      - run: yarn build
       - run: yarn test
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
