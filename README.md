@@ -110,6 +110,10 @@ React Context API
 const utils = useTableToolsContext();
 ```
 
+## Examples
+
+In progress...
+
 ## LICENSE
 
 MIT
