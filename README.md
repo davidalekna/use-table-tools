@@ -4,10 +4,11 @@
 <p align="center" style="font-size: 1.2rem;">React Hooks for building kickass react table components</p>
 
 [![Build Status][build-badge]][build]
-[![Code Coverage][coverage-badge]][coverage]
 [![MIT License][license-badge]][license]
 [![PRs Welcome][prs-badge]][prs]
 [![gzip size][gzip-badge]][unpkg-lib]
+
+<!-- [![Code Coverage][coverage-badge]][coverage] -->
 
 ## Introduction
 
@@ -109,11 +110,15 @@ React Context API
 const utils = useTableToolsContext();
 ```
 
+## Examples
+
+In progress...
+
 ## LICENSE
 
 MIT
 
-[build-badge]: https://travis-ci.org/davidalekna/use-table-tools.svg?style=flat-square
+[build-badge]: https://circleci.com/gh/davidalekna/use-table-tools/tree/master.svg?style=svg
 [build]: https://travis-ci.org/davidalekna/use-table-tools
 [coverage-badge]: https://codecov.io/gh/davidalekna/use-table-tools/branch/master/graph/badge.svg?style=flat-square
 [coverage]: https://codecov.io/gh/davidalekna/use-table-tools
