@@ -21,6 +21,8 @@ It features:
 - shifting columns into or off view
 - number of visible columns per screen resolution
 
+![Example gif video](docs/video-example.gif)
+
 ## Quick Start
 
 ```jsx
